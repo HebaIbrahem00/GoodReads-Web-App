@@ -1,0 +1,24 @@
+.signup-btn{
+    background-color:  #fdd05f ;
+    line-height: 0px;
+    height: 30px;
+    text-align: center;
+} 
+
+.signup-input{
+    background: #FFFFFF;
+    border-radius: 3px;
+    border:#DCD6CC 1px solid;
+    color: #333333;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    color: -internal-light-dark-color(black, white);
+    text-transform: none;
+    text-indent: 10px;
+    cursor: text;
+    padding: 1px 0px;
+    border-width: 2px;
+    border-style: inset;
+    width:250px;
+    height: 30px;
+    margin-bottom: 15px;
+}

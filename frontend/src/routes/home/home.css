@@ -1,0 +1,41 @@
+.wrapper {
+    background-image: linear-gradient(to left,#e2e0d1 ,#fafbf6 ,#e2e0d1);
+}
+
+.header {
+    height: 100px;
+    /* background-color: #BBB596; */
+    /* min-width: 980px;
+    padding: 0px 184px 0px 150px; */
+}
+
+.login-wrapper{
+    /* background-color: blue; */
+    height: 100px;
+}
+
+.logo {
+    margin-left: 100px;
+    margin-top: 20px;
+}
+
+.signup-wrapper{
+    /* background-color: green; */
+    height: 900px;
+}
+
+.headline{
+    margin-top: 50px;
+}
+
+.headline-wrapper{
+    /* background-color: yellow; */
+    height: 900px;
+}
+
+
+.signup-container{
+    height: 620px;
+    color: darkgray;
+}
+
