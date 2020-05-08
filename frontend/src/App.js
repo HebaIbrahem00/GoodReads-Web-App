@@ -3,6 +3,7 @@ import Signup from './components/signup'
 import Home from './routes/home/home';
 import Admin from './routes/admin/admin';
 import {BrowserRouter,Route} from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css'
 function App() {
   return (
     <div className="App">
