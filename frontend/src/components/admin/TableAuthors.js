@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table} from 'react-bootstrap';
+import {Table,Image} from 'react-bootstrap';
 export default function TableAuthors(props){
 const Authors=props.Authors;
 return(
@@ -19,7 +19,7 @@ return(
     Authors.map(Author=>
         <tr key={Author.ID}>
             <td>{Author.ID}</td>
-            <td>{Author.Photo}</td>
+            <td><Image src={Author.Photo} size="80" width="80" roundedCircle /></td>
             <td>{Author.FirstName}</td>
             <td>{Author.SecondName}</td>
             <td>{Author.Birth}</td>

@@ -1,6 +1,7 @@
 import React from 'react'
 import {Table} from 'react-bootstrap';
-export default function TableBooks(props){
+
+function TableBooks(props){
 const Books=props.Books;
 return(
     <Table className="mt-4" striped bordered hover size='sm'> 
@@ -19,14 +20,14 @@ return(
     Books.map(Book=>
         <tr key={Book.ID}>
             <td>{Book.ID}</td>
-            <td>{Book.Photo}</td>
+            <td><img src={Book.Photo} alt="logo" size='100' width='100' /></td>
             <td>{Book.Name}</td>
             <td>{Book.CategoryID}</td>
             <td>{Book.AuthoID}</td>
             <td>
                 <button className="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
                         onClick={() => this.replaceModalItem(Book.ID)}>edit</button> 
-                    {" "}
+                     {" "}
                 <button className="btn btn-danger" onClick={() => this.deleteItem(Book.ID)}>remove</button>
             </td>
         </tr>
@@ -36,3 +37,4 @@ return(
     </Table>
 );
 }
+export default TableBooks;
