@@ -1,4 +1,5 @@
 import React from 'react';
+import Navbar from './components/navbar/navbar'
 import Signup from './components/signup'
 import Home from './routes/home/home';
 import Admin from './routes/admin/admin';
@@ -13,6 +14,7 @@ function App() {
             <Route exact path="/" component={Home} />
           </switch>
       </BrowserRouter>
+      <Navbar/>
     </div>
   );
 }
