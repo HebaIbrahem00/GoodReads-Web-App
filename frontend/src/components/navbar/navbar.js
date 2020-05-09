@@ -1,4 +1,9 @@
 import React from 'react';
+import { FaRegUserCircle } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import { FaSignOutAlt } from "react-icons/fa";
+
+import './navbar.css'
 
 export default function Navbar(){
     return(
@@ -8,7 +13,7 @@ export default function Navbar(){
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
+            <ul className="navbar-nav mr-auto col-3">
             <li className="nav-item active">
                 <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
             </li>
@@ -22,11 +27,14 @@ export default function Navbar(){
                 <a className="nav-link" href="#">Authors</a>
             </li>
             </ul>
-            <i class="fa fa-user"></i>
-            <form className="form-inline my-2 my-lg-0">
-            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <form className="form-inline d-flex justify-content-center md-form form-sm mt-0 col-6">
+            <button className='button-transparent'><FaSearch/></button>
+            <input className="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
+                aria-label="Search"/>
             </form>
+            <button className= 'button-transparent'><FaRegUserCircle size={50}/></button>
+            <label className="col-1">User1</label>
+            <button className= 'button-transparent'><FaSignOutAlt size={50}/></button>
         </div>
         </nav>
     )

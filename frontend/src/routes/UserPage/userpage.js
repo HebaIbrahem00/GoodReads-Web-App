@@ -1,5 +1,6 @@
 import React from 'react'
 import UserTable from '../../components/userTable/usertable';
+import Navbar from '../../components/navbar/navbar';
 import './userpage.css';
 
 export default function UserPage() {
@@ -8,7 +9,7 @@ export default function UserPage() {
 
         <div className="container">
 
-            <div className="toppane"> <h1>NavBar Goes Hereeeeeeeeeeeeeeee</h1></div>
+            <Navbar/>
             <br></br>
             <br></br>
             <hr style={{ width: "50" }}></hr>
