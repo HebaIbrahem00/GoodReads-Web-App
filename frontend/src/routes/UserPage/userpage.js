@@ -16,7 +16,7 @@ export default function UserPage() {
          
           <div ><UserMain /></div> 
 
-            <div class="vertical-line"></div>
+            <div className="vertical-line"></div>
 
            
         </div>
