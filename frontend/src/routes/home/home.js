@@ -5,7 +5,7 @@ import headline from '../../assets/headline.png'
 import background from '../../assets/background.jpg'
 import Signup from '../../components/signup/signup'
 import Login from '../../components/login/login';
-
+import Footer from '../../components/footer/footer'
 
 const Home = () => {
     return (
@@ -38,9 +38,14 @@ const Home = () => {
                         <Signup />
                     </div>
                 </section>
+
+                <section className='footer'>
+                    <div>
+                        <Footer/>
+                    </div>
+                </section>
             </div>
         </div>
     )
 }
-
 export default Home;
