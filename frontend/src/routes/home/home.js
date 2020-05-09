@@ -27,7 +27,7 @@ const Home = () => {
 
                 </section>
 
-                <hr class="solid" />
+                <hr className="solid" />
 
                 <section className='row body'>
                     <div className='col-md-7 headline-wrapper'>
