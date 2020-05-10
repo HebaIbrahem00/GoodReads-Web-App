@@ -1,6 +1,5 @@
 import React from 'react';
 
-import './footer.css'
 
 export default function Footer(){
     return(
@@ -12,19 +11,19 @@ export default function Footer(){
         <div className="collapse navbar-collapse col-12" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto separator">
             <li className="nav-item active">
-                <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                <a className="nav-link ml-5" href="#">Home <span class="ml-5">|⋮|</span><span className="sr-only">(current)</span></a>
             </li>
             <li className="nav-item">
-                <a className="nav-link " href="#">About Us</a>
+                <a className="nav-link ml-5 " href="#">About Us<span class="ml-5 disabled">|⋮|</span></a>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">Categories</a>
+                <a className="nav-link ml-5" href="#">Categories<span class="ml-5">|⋮|</span></a>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">Authors</a>
+                <a className="nav-link ml-5" href="#">Authors<span class="ml-5">|⋮|</span></a>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">Terms & Conditions</a>
+                <a className="nav-link ml-5" href="#">Terms & Conditions</a>
             </li>
             </ul>
         </div>
