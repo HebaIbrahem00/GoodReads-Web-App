@@ -1,5 +1,9 @@
 import React from 'react';
 
+<<<<<<< HEAD
+=======
+import './footer.css'
+>>>>>>> Main
 
 export default function Footer(){
     return(
@@ -11,6 +15,7 @@ export default function Footer(){
         <div className="collapse navbar-collapse col-12" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto separator">
             <li className="nav-item active">
+<<<<<<< HEAD
                 <a className="nav-link ml-5" href="#">Home <span class="ml-5">|⋮|</span><span className="sr-only">(current)</span></a>
             </li>
             <li className="nav-item">
@@ -24,6 +29,21 @@ export default function Footer(){
             </li>
             <li className="nav-item">
                 <a className="nav-link ml-5" href="#">Terms & Conditions</a>
+=======
+                <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link " href="#">About Us</a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="#">Categories</a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="#">Authors</a>
+            </li>
+            <li className="nav-item">
+                <a className="nav-link" href="#">Terms & Conditions</a>
+>>>>>>> Main
             </li>
             </ul>
         </div>
