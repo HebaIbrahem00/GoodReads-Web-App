@@ -22,3 +22,13 @@
     height: 30px;
     margin-bottom: 15px;
 }
+
+.error {
+    color:red;
+    font-size: 10px;
+}
+
+.inputError {
+    border-color: red;
+    background-color: pink;
+}
