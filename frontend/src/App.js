@@ -19,7 +19,7 @@ function App() {
         <Route exact path="/" component={Home}  ></Route>
         <Route exact path="/userpage" component={UserPage}></Route>
         <Route exact path="/admin" component={Admin} />
-        <Route exact path="/books/:1" component={Book}/>
+        <Route exact path="/books" component={Book}/>
         </div>
       </BrowserRouter>
   );
