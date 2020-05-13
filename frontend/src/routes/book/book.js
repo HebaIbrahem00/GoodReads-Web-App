@@ -17,9 +17,9 @@ export default function Book(){
                     <div className="no-gutters d-flex flex-row">
                         <div className="col-4 d-flex flex-column flex-center">
                             <div className="mt-2 ml-2"><img src="https://s3-ap-northeast-1.amazonaws.com/ddnbgroup/wp-content/uploads/2015/08/28084941/How-to-format-a-book.jpg" className="card-img col-8" alt="..."/></div>
-                            <div className="col-6">
+                            <div className="col-6 ml-2">
                                 <Dropdown/>
-                                <div className="d-flex flex-row">
+                                <div className="d-flex flex-row ml-2">
                                     <ButtonRating/>
                                 </div>
                             </div>
