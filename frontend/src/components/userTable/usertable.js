@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Paginate from '../pagination/paginate.js';
 import { NavLink } from 'react-router-dom'
 import './usertable.css';
-import Rating from '../userMain/rating';
+import Rating from './rating';
+import DropdownM from './dropdown';
 
 /** started on 8/5/2020 */
 /**  we can type "rfc" and then enter and it will create a default react functional component, that's because of ES7 react Extension */
 
 export default function UserTable(props) {
+    const id =1;
 
 
     return (
@@ -37,11 +39,11 @@ export default function UserTable(props) {
                         <tr>
                             <th scope="row"><img src="https://image.flaticon.com/icons/svg/166/166088.svg"></img></th>
 
-                            <td><NavLink to="/books" style={{ textDecoration: "underline" }}>Outilers</NavLink></td>
+                            <td><NavLink to="/books/`{id}`" style={{ textDecoration: "underline" }}>Outilers</NavLink></td>
                             <td>  <NavLink to="/about" style={{ textDecoration: "underline" }}>Author Name</NavLink>  </td>
                             <td> <Rating/> </td>
                             <td>stars</td>
-                            <td> dropown menu</td>
+                            <td> <DropdownM/>  </td>
                         </tr>
 
                     </tbody>
