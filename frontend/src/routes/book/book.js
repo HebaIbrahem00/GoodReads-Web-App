@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import Navbar from '../../components/navbar/navbar';
+import Dropdown from '../../components/dropdown/dropdown'
+import ButtonRating from '../../components/rating/buttonRating';
+import LabelRating from '../../components/rating/labelRating';
+
 import FlatList from 'flatlist-react';
-import { FaStar, FaRegStar } from "react-icons/fa";
+
 
 export default function Book(){
 
@@ -12,19 +16,11 @@ export default function Book(){
                 <div className="card  mh-100 d-flex flex-row">
                     <div className="no-gutters d-flex flex-row">
                         <div className="col-4 d-flex flex-column flex-center">
-                            <div><img src="https://s3-ap-northeast-1.amazonaws.com/ddnbgroup/wp-content/uploads/2015/08/28084941/How-to-format-a-book.jpg" className="card-img col-8" alt="..."/></div>
-                            <div className="col-6">
-                                <select className="custom-select" id="inputGroupSelect01">
-                                    <option value="1">Want To Read</option>
-                                    <option value="2">Currently Read</option>
-                                    <option value="3">Finish Reading</option>
-                                </select>
-                                <div className="d-flex flex-row">
-                                    <button id='firstEmpStar' className= 'button-transparent'><FaRegStar size={15}/></button>
-                                    <button id='secondEmpStar' className= 'button-transparent'><FaRegStar size={15}/></button>
-                                    <button id='thirdEmpStar' className= 'button-transparent'><FaRegStar size={15}/></button>
-                                    <button id='forthEmpStar' className= 'button-transparent'><FaRegStar size={15}/></button>
-                                    <button id='fifthEmpStar' className= 'button-transparent'><FaRegStar size={15}/></button>
+                            <div className="mt-2 ml-2"><img src="https://s3-ap-northeast-1.amazonaws.com/ddnbgroup/wp-content/uploads/2015/08/28084941/How-to-format-a-book.jpg" className="card-img col-8" alt="..."/></div>
+                            <div className="col-6 ml-2">
+                                <Dropdown/>
+                                <div className="d-flex flex-row ml-2">
+                                    <ButtonRating/>
                                 </div>
                             </div>
                         </div>
@@ -34,11 +30,7 @@ export default function Book(){
                                 <div><a href="">by Book Author</a></div>
                                 <div><a className="" href="">Category Name</a></div>
                                 <div className="d-flex flex-row">
-                                    <p id='firstEmpStar' className= 'button-transparent'><FaStar size={15}/></p>
-                                    <p id='secondEmpStar' className= 'button-transparent'><FaStar size={15}/></p>
-                                    <p id='thirdEmpStar' className= 'button-transparent'><FaStar size={15}/></p>
-                                    <p id='forthEmpStar' className= 'button-transparent'><FaRegStar size={15}/></p>
-                                    <p id='fifthEmpStar' className= 'button-transparent'><FaRegStar size={15}/></p>
+                                    <LabelRating/>
                                     <p className="card-text text-muted"> 3 </p>
                                     <p className="card-text text-muted"> - 340 ratings</p>
                                 </div>
