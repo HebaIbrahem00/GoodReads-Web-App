@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@popperjs/core": "^2.4.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -19,7 +20,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "reactjs-popup": "^1.5.0",
-    "reactstrap": "^8.4.1"
+    "reactstrap": "^8.4.1",
+    "resolve-url-loader": "^3.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,7 +45,16 @@
     ]
   },
   "devDependencies": {
+    "bootstrap-loader": "^3.0.4",
     "css-loader": "^3.5.3",
+<<<<<<< HEAD
     "style-loader": "^1.2.1"
   }
+=======
+    "jquery": "^3.5.1",
+    "style-loader": "^1.2.1",
+    "tether": "^1.4.7"
+  },
+  "proxy": "http://localhost:5000"
+>>>>>>> a6f3f1b1efbc886a4df3c4fa3794d645b12c1036
 }
