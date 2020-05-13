@@ -1,5 +1,11 @@
 .wrapper {
+    height: 1000px;
+}
+
+.login-signup-container{
     background-image: linear-gradient(to left,#e2e0d1 ,#fafbf6 ,#e2e0d1);
+    height: 500px;
+    /* clip-path: polygon( 0 0, 100% 0, 100% 90%, 0 100%); */
 }
 
 .header {
@@ -19,19 +25,11 @@
     margin-top: 20px;
 }
 
-.signup-wrapper{
-    /* background-color: green; */
-    height: 900px;
-}
-
 .headline{
     margin-top: 50px;
 }
 
-.headline-wrapper{
-    /* background-color: yellow; */
-    height: 900px;
-}
+
 
 
 .signup-container{
@@ -39,3 +37,16 @@
     color: darkgray;
 }
 
+.sec02{
+    height: 400px;
+}
+
+.sec03{
+    margin-top: 0px;
+}
+
+.ad{
+    height:600px;
+    width: 400px;
+    margin-left: 100px;
+}
