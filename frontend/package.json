@@ -47,14 +47,9 @@
   "devDependencies": {
     "bootstrap-loader": "^3.0.4",
     "css-loader": "^3.5.3",
-<<<<<<< HEAD
-    "style-loader": "^1.2.1"
-  }
-=======
     "jquery": "^3.5.1",
     "style-loader": "^1.2.1",
     "tether": "^1.4.7"
   },
   "proxy": "http://localhost:5000"
->>>>>>> a6f3f1b1efbc886a4df3c4fa3794d645b12c1036
 }

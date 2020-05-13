@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import UserTable from '../userTable/usertable.js';
+import UserTable from '../userTable/usertable.js'; 
+
 
 export default function UserMain(props) {
   
@@ -49,6 +50,7 @@ export default function UserMain(props) {
         </ul>
       </div>
       <div className="rightpane">  <UserTable title={title}/> </div>
+     
     </div>
      
   );

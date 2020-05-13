@@ -1,5 +1,5 @@
 import React , {useState , useEffect} from 'react' ;
-
+import Paginate  from '../pagination/paginate.js';
 
 /** started on 8/5/2020 */
 /**  we can type "rfc" and then enter and it will create a default react functional component, that's because of ES7 react Extension */
@@ -41,7 +41,9 @@ export default function UserTable(props) {
                         </tr>
 
                     </tbody>
+                   
                 </table>
+                <div className="rightpane pagination" >  <Paginate/> </div>
             </div>
         </div>
 
