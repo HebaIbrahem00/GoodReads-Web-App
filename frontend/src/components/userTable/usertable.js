@@ -1,19 +1,22 @@
-import React , {useState , useEffect} from 'react' ;
-import Paginate  from '../pagination/paginate.js';
+import React, { useState, useEffect } from 'react';
+import Paginate from '../pagination/paginate.js';
+import { NavLink } from 'react-router-dom'
+import './usertable.css';
+import Rating from '../userMain/rating';
 
 /** started on 8/5/2020 */
 /**  we can type "rfc" and then enter and it will create a default react functional component, that's because of ES7 react Extension */
 
 export default function UserTable(props) {
 
-  
-       return (
+
+    return (
 
         <div className="card text-center">
             <div className="card-header">
                 <ul className="nav nav-pills card-header-pills">
                     <li className="nav-item">
-       <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">{props.title}</a>
+                        <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">{props.title}</a>
                     </li>
                 </ul>
             </div>
@@ -23,7 +26,7 @@ export default function UserTable(props) {
                     <thead>
                         <tr>
                             <th scope="col">Cover</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Name </th>
                             <th scope="col">Author</th>
                             <th scope="col">Avg Rating</th>
                             <th scope="col">Rating</th>
@@ -32,21 +35,27 @@ export default function UserTable(props) {
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>gffg</td>
-                            <td>fgfdfg</td>
+                            <th scope="row"><img src="https://image.flaticon.com/icons/svg/166/166088.svg"></img></th>
+
+                            <td><NavLink to="/books" style={{ textDecoration: "underline" }}>Outilers</NavLink></td>
+                            <td>  <NavLink to="/about" style={{ textDecoration: "underline" }}>Author Name</NavLink>  </td>
+                            <td> <Rating/> </td>
+                            <td>stars</td>
+                            <td> dropown menu</td>
                         </tr>
 
                     </tbody>
-                   
+
                 </table>
-                <div className="rightpane pagination" >  <Paginate/> </div>
+                <div className="rightpane pagination" >  <Paginate /> </div>
             </div>
         </div>
 
 
     )
+
+
+
+
 }
+

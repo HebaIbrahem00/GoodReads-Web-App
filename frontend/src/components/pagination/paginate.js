@@ -9,6 +9,7 @@ export default function Paginate() {
             Previous
           </a>
         </li>
+
         <li className="page-item" style={{paddingLeft:10,paddingRight:10}}>
           <a className="page-link">1</a>
         </li>
@@ -19,12 +20,12 @@ export default function Paginate() {
           </a>
         </li>
 
-        <li className="page-item">
+        <li className="page-item" style={{paddingLeft:10,paddingRight:10}}>
           <a className="page-link">3</a>
         </li>
 
-        <li className="page-item ">
-          <a className="page-link">Next</a>
+        <li className="page-item " style={{paddingLeft:10,paddingRight:10}}>
+          <a className="page-link" >Next</a>
         </li>
 
       </ul>
