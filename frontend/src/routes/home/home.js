@@ -6,8 +6,7 @@ import headline from '../../assets/headline.png'
 import Signup from '../../components/signup/signup'
 import Login from '../../components/login/login';
 import Populars from '../../components/populars/populars';
-import Footer from '../../components/footer/footer';
-
+import Footer from '../../components/footer/footer'
 
 const Home = () => {
     return (
