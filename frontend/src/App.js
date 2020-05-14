@@ -2,6 +2,8 @@ import React from 'react';
 import Home from './routes/home/home';
 import Admin from './routes/admin/admin';	
 import Book from './routes/book/book';
+import Author from './routes/author/author';
+
 import { BrowserRouter, Route } from 'react-router-dom';
 import UserPage from './routes/UserPage/userpage';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
@@ -19,7 +21,8 @@ function App() {
         <Route exact path="/" component={Home}  ></Route>
         <Route exact path="/userpage" component={UserPage}></Route>
         <Route exact path="/admin" component={Admin} />
-        <Route exact path="/books" component={Book}/>
+        <Route exact path="/books/1" component={Book}/>
+        <Route exact path="/authors/1" component={Author}/>
         </div>
       </BrowserRouter>
   );
