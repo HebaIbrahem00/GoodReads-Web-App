@@ -15,7 +15,7 @@ mongoose.connect(DB_URL,{useNewUrlParser:true},(err)=>
 
 //Server EndPoints/ API 
 router.get('/',(req,res,next)=>{  
-    const userID = req.params.id ;  //just for now
+    const userID = req.body.id ;  //just for now
     const shelve = req.body.shelve ;
     const all =false;
 
