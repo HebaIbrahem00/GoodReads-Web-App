@@ -3,14 +3,26 @@ const cockieParser = require('cookie-parser')
 var cors = require('cors')
 const app = express();
 const userRouter = require('./routes/user.route')
-
+const categoriesRouter = require('./routes/categoriesRoute')
 const PORT = process.env.PORT || 5000;
+const mongoose = require('mongoose');
 
 app.use(cockieParser());
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
+
+mongoose.connect('mongodb://localhost:27017/goodreads',{
+    useNewUrlParser: true ,
+    useUnifiedTopology: true
+},(err)=>{
+    if(!err){
+        return console.log("Sucessfully Connected DataBase")
+    }
+    console.log(err);
+})
 
 app.use('/user', userRouter)
+app.use('/categories',categoriesRouter);
 
 
 app.listen(PORT, () =>
