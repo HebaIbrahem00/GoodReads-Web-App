@@ -4,7 +4,7 @@ const bookSchema = new mongoose.Schema({
   user:{type: Schema.Types.ObjectId ,ref:"User"},
   cover: { type: Image },
   name: { type: String ,required:true , unique:true},
-  author: { type: String ,required:true},
+  //author: { type:Schema.Types.ObjectId,ref :"Author"},
   avgRating: { type: Number },
   rating: { type: Number },
   shelve: { type: String ,required },
