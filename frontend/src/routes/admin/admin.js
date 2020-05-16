@@ -1,7 +1,6 @@
 import React from 'react'
 import './admin.css'
-import {NavLink} from 'react-router-dom'
-import { Tabs,Tab,Table} from 'react-bootstrap';
+import { Tabs,Tab} from 'react-bootstrap';
 import TableAuthors from '../../components/admin/TableAuthors'
 import TableBooks from '../../components/admin/TableBooks'
 import TableCategories from '../../components/admin/TableCategories'

@@ -39,6 +39,7 @@ router.post('/signup', (req, res) => {
             })
         }
     })
+    mongoose.disconnect();
 })
 
 router.post('/login', passport.authenticate('local', { session: false }), (req, res) => {
