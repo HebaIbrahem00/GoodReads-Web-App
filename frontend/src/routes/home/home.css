@@ -1,52 +1,50 @@
 .wrapper {
-    height: 1000px;
+    height: 700px;
 }
 
-.login-signup-container{
+.header{
     background-image: linear-gradient(to left,#e2e0d1 ,#fafbf6 ,#e2e0d1);
-    height: 500px;
-    /* clip-path: polygon( 0 0, 100% 0, 100% 90%, 0 100%); */
+    height: 450px;
 }
 
-.header {
-    height: 100px;
-    /* background-color: #BBB596; */
-    /* min-width: 980px;
-    padding: 0px 184px 0px 150px; */
-}
-
-.login-wrapper{
-    /* background-color: blue; */
+/* ************* section 1 **************** */
+.sec01 {
     height: 100px;
 }
 
-.logo {
+.sec01 .logo {
     margin-left: 100px;
     margin-top: 20px;
-    width: 100px;
 }
 
-.headline{
+
+/* ************* section 2 **************** */
+.sec02 {
+    height: 350px;
+}
+
+.sec02 .headline {
     margin-top: 50px;
 }
 
-
-
-
-.signup-container{
-    height: 620px;
-    color: darkgray;
+.sec02 .register-box .signup-wrapper{
+    height: 250px;
 }
 
-.sec02{
-    height: 400px;
+
+.sec02 .register-box .third-party-signin-box{
+    height: 50px;
+    position: absolute;
+    bottom: 33px;
+    left: 25px;
 }
 
-.sec03{
-    margin-top: 0px;
+/* ************* section 3 **************** */
+.sec03 {
+    margin-top: 30px;
 }
 
-.ad{
+.sec03 .ad{
     height:600px;
     width: 400px;
     margin-left: 100px;

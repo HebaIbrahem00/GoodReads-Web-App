@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react'
 
+const initialState = {
+    email: '',
+    password: ''
+}
+
 const validate = (values) => {
     let errors = {};
     const mailRegex = /(.+)@(.+){2,}\.(.+){2,}/;
@@ -22,8 +27,8 @@ const validate = (values) => {
 
 
 const LoginForm = (callback) => {
-    const [values, setValues] = useState({ email: "", password: "" });
-    const [errors, setErrors] = useState({ email: "", password: "" });
+    const [values, setValues] = useState(initialState);
+    const [errors, setErrors] = useState(initialState);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (event) => {
@@ -37,15 +42,21 @@ const LoginForm = (callback) => {
         setIsSubmitting(true);
     }
 
+    const resetForm = () => {
+        setValues(initialState)
+    }
+
     useEffect(() => {
         if (Object.keys(errors).length === 0 && isSubmitting) {
             callback(values);
         }
     }, [errors]);
 
+
     return {
         handleChange,
         handleSubmit,
+        resetForm,
         values,
         errors,
     }
