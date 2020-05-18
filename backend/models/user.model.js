@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
+        required: true,
     },
     password: {
         type: String,
@@ -21,9 +22,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['user', 'admin']
     },
-    todos: [{
+    favBooks: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Todo'
+        ref: 'Book'
     }]
 });
 
@@ -54,15 +55,17 @@ userSchema.methods.comparePassword = function (candidatePassword, cb) {
                 reject(new Error("Error checking use password"));
                 return cb(err);
             } else {
-                if (isMatch) {
-                    resolve('passwords match')
+                if (!isMatch) {
+                    reject('passwords dont match')
+                    return cb(null, isMatch);
+                } else {
+                    resolve('passwords match')                    
                     return cb(null, user);
                 }
-                else
-                    reject('passwords dont match')
             }
         });
     });
 };
 
-module.exports = mongoose.model('User', userSchema)
+
+module.exports = mongoose.model('User', userSchema) 

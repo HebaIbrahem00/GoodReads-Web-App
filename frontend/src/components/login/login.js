@@ -1,31 +1,41 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import './login.css'
-import Modal from '../modal/modal'
 
 import LoginForm from './loginForm'
 import AuthService from '../../services/authService'
+import { AuthContext } from '../../store/AuthContext';
 
 
-export default function Login() {
+const Login = props => {
+    const { handleChange, handleSubmit, values, resetForm } = LoginForm(submit);
+    const { setCurrentUserInfo } = useContext(AuthContext);
 
-    const popupMsg = () => {        
-        return (
-            <>
-                <Modal title='here' />
-            </>
-        )
+    function updatMessage(newValue) {
+        props.loginMessage(newValue);
     }
-    const { handleChange, handleSubmit, values, errors } = LoginForm(submit);
 
-    function submit(values) {
-        AuthService.login(values)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                popupMsg()
-            })
-            .catch(err => console.log(err))
+    async function submit(values) {
+        try {
+            const response = await AuthService.login(values);
+            const { isAuthenticated, message } = response;
+            if (isAuthenticated) {
+                setCurrentUserInfo({
+                    type: "LOGIN",
+                    payload: response
+                })
+                // props.history.push('/');
+            }
+            else
+                updatMessage(message)
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
+
+    useEffect(() => {
+        resetForm()
+    }, []);
 
     return (
         <div className='form-container'>
@@ -58,7 +68,10 @@ export default function Login() {
 
 
                     <div className='col-2'>
-                        <input type="submit" value="Sign in" className="gr-button gr-button--dark login-btn" />
+                        <input type="submit"
+                            value="Sign in"
+                            className="gr-button gr-button--dark login-btn"
+                        />
                     </div>
 
 
@@ -67,3 +80,5 @@ export default function Login() {
         </div>
     )
 }
+
+export default Login;
