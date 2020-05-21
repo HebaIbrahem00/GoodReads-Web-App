@@ -8,9 +8,9 @@ const amazonIcon = "https://s.gr-assets.com/assets/gr/third_party/amazon_circle-
 const NavLInk = () => {
     return (
 
-        <div class="footer-social-icons">
+        <div className="footer-social-icons">
             <p className='mytext'>or sign in using</p>
-            <ul class="social-icons">
+            <ul className="social-icons">
                 <li className='list-item'><a href="/" > <img className="social-icon" src={fbIcon} alt='' /> </a></li>
                 <li className='list-item'><a href="/" > <img className="social-icon" src={twitterIcon} alt='' /> </a></li>
                 <li className='list-item'><a href="/" > <img className="social-icon" src={googleIcon} alt='' /> </a></li>

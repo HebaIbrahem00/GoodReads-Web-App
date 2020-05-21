@@ -5,7 +5,7 @@ export default function Paginate() {
     <nav aria-label="Page navigation example">
       <ul className="pagination pg-blue">
         <li className="page-item ">
-          <a className="page-link" tabindex="-1">
+          <a className="page-link" tabIndex="-1">
             Previous
           </a>
         </li>
