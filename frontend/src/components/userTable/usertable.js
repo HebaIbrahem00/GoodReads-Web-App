@@ -9,10 +9,9 @@ import Dropdown from '../dropdown/dropdown';
 /**  we can type "rfc" and then enter and it will create a default react functional component, that's because of ES7 react Extension */
 
 export default function UserTable(props) {
-    const id =1;
-
-
-    return (
+  
+console.log("books at table ", props.books)
+   return (
 
         <div className="card text-center">
             <div className="card-header">
@@ -35,17 +34,19 @@ export default function UserTable(props) {
                             <th scope="col">Shelve</th>
                         </tr>
                     </thead>
+                    
                     <tbody>
-                        <tr>
+                        {props.books.map((book=>(
+                        <tr key={book.id}>
                             <th scope="row"><img src="https://image.flaticon.com/icons/svg/166/166088.svg"></img></th>
 
-                            <td><NavLink to="/books/`{id}`" style={{ textDecoration: "underline" }}>Outilers</NavLink></td>
+                        <td><NavLink to="/books/`{id}`" style={{ textDecoration: "underline" }}>{book.book.name}</NavLink></td>
                             <td>  <NavLink to="/about" style={{ textDecoration: "underline" }}>Author Name</NavLink>  </td>
                             <td>  </td>
                             <td><ButtonRating/></td>
                             <td> <Dropdown/> </td>
                         </tr>
-
+                          )))}
                     </tbody>
 
                 </table>

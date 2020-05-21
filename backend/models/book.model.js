@@ -11,8 +11,8 @@ const bookSchema = new mongoose.Schema({
   //author: { type:Schema.Types.ObjectId,ref :"Author"},
   avgRating: { type: Number },
   rating: { type: Number },
-  shelve: { type: String  },
-  //category:{type:Schema.Types.ObjectId,ref :"Category"}
+
+  category:{type:Schema.Types.ObjectId,ref :"categories"},
   details :{type:String},
   reviews : [{type :Object}] //each object key:value may be  username-review or fullname:review
 
@@ -24,6 +24,6 @@ bookSchema.methods.whatever = function(){
 
 }
 
-const bookModel = mongoose.model('usertable',bookSchema);
+const bookModel = mongoose.model('Book',bookSchema);
 
 module.exports = bookModel;

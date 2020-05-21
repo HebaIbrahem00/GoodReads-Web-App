@@ -24,14 +24,12 @@ export default function UserMain(props) {
       data: {
         id: id,
         shelve: shelve,
-      },
-    })
-      .then((response) => {
+      }
+    }).then((response) => {
         console.log(response.data);
         console.log("axios workingg");
-        //here i save the data with setBooks
-      })
-      .catch((error) => {
+        setBooks(response.data)
+      }).catch((error) => {
         console.log(error);
       });
   });
@@ -44,42 +42,7 @@ export default function UserMain(props) {
   } );
 }*/
 
-  const all = [
-    {
-      cover: "readimg",
-      name: "outliers",
-      author: "malcolm",
-      avg: "5",
-      rating: "5",
-      shelve: "read",
-    },
-    {
-      cover: "readimg",
-      name: "outliers",
-      author: "malcolm",
-      avg: "5",
-      rating: "5",
-      shelve: "read",
-    },
-    {
-      cover: "readimg",
-      name: "outliers",
-      author: "malcolm",
-      avg: "5",
-      rating: "5",
-      shelve: "read",
-    },
-    {
-      cover: "readimg",
-      name: "outliers",
-      author: "malcolm",
-      avg: "5",
-      rating: "5",
-      shelve: "read",
-    },
-  ];
-
-  const filteredBooks = () => {};
+ 
 
   return (
     <div>
