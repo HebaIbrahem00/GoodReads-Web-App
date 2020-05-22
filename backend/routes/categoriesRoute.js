@@ -57,5 +57,30 @@ router.post('/',(req,res)=>{
 router.delete('/',(req,res)=>{
     res.send('Deleting a Categories Model')
 })*/
+router.post('/update/:id',(req,res)=>{
+    let categoriesData={}
+    console.log("Edit Method==>/categories/");
+    categoriesData.name=req.body.name;
+   let query={_id:req.params.id} 
+   CategoriesModel.update(query,categoriesData,(err)=>{
+           if(!err) return res.json(categoriesData);
+            res.json({
+                content : 'error'
+             })
+        })
+    //mongoose.disconnect();
+})
+router.delete('/:id',(req,res)=>{
+   let query={_id:req.params.id} 
+ CategoriesModel.remove(query,(err)=>{
+           if(!err){ res.json({
+			   content : 'Success  Deleting'
+			})
+		}
+	   else{res.json({
+			   content : 'Failure  Deleting'
+	    })} 
+        })
+})
 
 module.exports = router;

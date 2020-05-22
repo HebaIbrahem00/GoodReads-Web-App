@@ -15,15 +15,16 @@ app.use(cockieParser());
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect('mongodb://localhost:27017/goodreads',{
+mongoose.connect(DB_URL,{
     useNewUrlParser: true ,
     useUnifiedTopology: true
 },(err)=>{
     if(!err){
         return console.log("Sucessfully Connected DataBase")
     }
-    console.log(err);
+   else{ console.log(err);}
 })
+
 
 app.use('/user', userRouter)
 app.use('/userpage' , userPageRoute);
