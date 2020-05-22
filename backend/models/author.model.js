@@ -6,10 +6,11 @@ const authorSchema = new mongoose.Schema({
     dob: Date,
     bio: String,
     pic: { data: Buffer, contentType: String },
-    books: {type: mongoose.Schema.Types.ObjectId, ref:'book'}
+    //authorImage:{type: String, required: true }
+    //books: {type: mongoose.Schema.Types.ObjectId, ref:'book'}
 })
 
-const authorModel = mongoose.model('author',authorSchema)
+const authorModel = mongoose.model('authorBook',authorSchema)
 
 authorSchema.methods.getFullName = function(){
     return this.firstName +' '+ this.lastName
