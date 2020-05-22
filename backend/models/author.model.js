@@ -9,8 +9,6 @@ const authorSchema = new mongoose.Schema({
     books: {type: mongoose.Schema.Types.ObjectId, ref:'book'}
 })
 
-const authorModel = mongoose.model('author',authorSchema)
-
 authorSchema.methods.getFullName = function(){
     return this.firstName +' '+ this.lastName
 }
@@ -24,4 +22,5 @@ authorSchema.statics.getAuthorsByFullName = function(fullName, cb){
 //     console.log(authors)
 // })
 
+const authorModel = mongoose.model('author',authorSchema)
 module.exports = authorModel

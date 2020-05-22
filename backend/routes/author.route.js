@@ -7,20 +7,24 @@ const authorModel = require('../models/author.model')
 
 router.get('/',(req, res)=>{
     res.send("listing all authors")
+    res.send(`query string params = ${JSON.stringify(req.query)}`)
 })
 
 router.get('/:id',(req, res)=>{
     const id = req.params.id
-    res.send(`listing author with id = ${id} and query string params = ${JSON.stringify(req.query)}`)
+    authorModel.findById(id, function (err, author) {
+        if (err) res.status(401).json(err);
+        else res.json(author);
+    })
+    // res.send(`listing author with id = ${id} and query string params = ${JSON.stringify(req.query)}`)
 })
 
 //single here means single file
-router.post('/',upload.single('authorImage'),(req, res)=>{
+router.post('/',upload.single('pic'),(req, res)=>{
     console.log(req.file)
-    res.send("creating an author")
-    const authorData =req.body
-    const author = new userModel(authorData)
-    const name = user.getFullName();
+    const authorData = req.body
+    const author = new authorModel(authorData)
+    const name = author.getFullName();
     console.log(name)
     author.save((err, author)=>{
         if(!err) return res.json(author);
