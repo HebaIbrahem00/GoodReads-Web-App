@@ -5,22 +5,34 @@ const authorSchema = new mongoose.Schema({
     lastName: String,
     dob: Date,
     bio: String,
-    pic: { data: Buffer, contentType: String },
-    books: {type: mongoose.Schema.Types.ObjectId, ref:'book'}
+    pic: String,
+    books: [{
+        type: mongoose.Schema.Types.ObjectId, ref:'book'
+    }]
 })
 
-authorSchema.methods.getFullName = function(){
-    return this.firstName +' '+ this.lastName
+authorSchema.methods = {
+    getFullName: function () {
+        return this.firstName + ' ' + this.lastName
+    },
+    getBooks: function () {
+        return this.books
+    }
 }
 
-authorSchema.statics.getAuthorsByFullName = function(fullName, cb){
-    const [firstName, lastName] = fullName.split(" ");
-    this.find({firstName:firstName, lastName:lastName},cb)
+authorSchema.statics = {
+    list: function () {
+        return this.find({}).exec();
+    },
+    get: function (id) {
+        return this.findById(id).exec();
+    },
+    constructData: function (req) {
+        return req.file? {
+            ...req.body,
+            pic: "images/" + req.file.filename
+        } : req.body;
+    }
 }
 
-// authorModel.getAuthorsByFullName('Menna Abdallah', (err, users)=>{
-//     console.log(authors)
-// })
-
-const authorModel = mongoose.model('author',authorSchema)
-module.exports = authorModel
+module.exports = mongoose.model('author', authorSchema)

@@ -5,25 +5,33 @@ const multer = require("multer");
 const upload = multer({dest: 'uploads/'});//upload is a folder to upload all incoming files
 const authorModel = require('../models/author.model')
 
-router.get('/',(req, res)=>{
-    res.send("listing all authors")
-    res.send(`query string params = ${JSON.stringify(req.query)}`)
+router.get('/', (req, res) => {
+    authorModel.list().then((authors) => {
+        res.json(authors)
+    }).catch((err) => {
+        res.status(400).json(err);
+    });
 })
 
-router.get('/:id',(req, res)=>{
-    const id = req.params.id
-    authorModel.findById(id, function (err, author) {
-        if (err) res.status(401).json(err);
-        else res.json(author);
-    })
-    // res.send(`listing author with id = ${id} and query string params = ${JSON.stringify(req.query)}`)
+router.get('/:id', (req, res) => {
+    authorModel.get(req.params.id).then((author) => {
+        res.json(author)
+    }).catch((err) => {
+        res.status(400).json(err);
+    });
+})
+
+router.get('/:id/books', (req, res) => {
+    authorModel.get(req.params.id).then((author) => {
+        res.json(author.getBooks())
+    }).catch((err) => {
+        res.status(400).json(err);
+    });
 })
 
 //single here means single file
-router.post('/',upload.single('pic'),(req, res)=>{
-    console.log(req.file)
-    const authorData = req.body
-    const author = new authorModel(authorData)
+router.post('/', upload.single('pic'), (req, res)=>{
+    const author = new authorModel(authorModel.constructData(req));
     const name = author.getFullName();
     console.log(name)
     author.save((err, author)=>{
@@ -34,14 +42,50 @@ router.post('/',upload.single('pic'),(req, res)=>{
     })
 })
 
-router.patch('/:id',(req, res)=>{
+router.patch('/:id', upload.single('pic'), (req, res) => {
     const id = req.params.id
-    res.send(`edit an author with id = ${id}`)
+    authorModel.updateOne({
+        _id: id
+    }, {
+        $set: authorModel.constructData(req)
+    }, (err, author) => {
+        if (err) res.status(400).json(err);
+        else {
+            authorModel.get(id).then((author) => {
+                res.json(author)
+            }).catch((err) => {
+                res.status(400).json(err);
+            });
+        }
+    })
+})
+
+router.post('/update/:id', upload.single('pic'), (req, res) => {
+    const id = req.params.id
+    authorModel.updateOne({
+        _id: id
+    }, {
+        $set: authorModel.constructData(req)
+    }, (err, author) => {
+        if (err) res.status(400).json(err);
+        else {
+            authorModel.get(id).then((author) => {
+                res.json(author)
+            }).catch((err) => {
+                res.status(400).json(err);
+            });
+        }
+    })
 })
 
 router.delete('/:id',(req, res)=>{
     const id = req.params.id
-    res.send(`delete a user with id = ${id}`)
+    authorModel.deleteOne({
+        _id: id
+    }, (err, result) => {
+        if (err) res.status(400).json(err);
+        else res.json(result)
+    })
 })
 
 module.exports = router;

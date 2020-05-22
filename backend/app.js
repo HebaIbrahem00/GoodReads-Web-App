@@ -2,6 +2,7 @@ const express = require('express')
 const cockieParser = require('cookie-parser')
 var cors = require('cors')
 const app = express();
+const path = require('path');
 const userRouter = require('./routes/user.route')
 const userPageRoute = require('./routes/userPage.route');
 const authorRouter = require('./routes/author.route')
@@ -14,6 +15,8 @@ const mongoose = require('mongoose');
 app.use(cockieParser());
 app.use(express.json());
 app.use(cors());
+app.use('/images', express.static(path.join(__dirname, 'uploads')))
+
 
 mongoose.connect(DB_URL,{
     useNewUrlParser: true ,
