@@ -5,7 +5,7 @@ const authorSchema = new mongoose.Schema({
     lastName: String,
     dob: Date,
     bio: String,
-    pic: URL,
+    pic: { data: Buffer, contentType: String },
     books: {type: mongoose.Schema.Types.ObjectId, ref:'book'}
 })
 
@@ -20,10 +20,8 @@ authorSchema.statics.getAuthorsByFullName = function(fullName, cb){
     this.find({firstName:firstName, lastName:lastName},cb)
 }
 
-const authorModel = mongoose.model('author', authorSchema)
-
-authorModel.getAuthorsByFullName('Menna Abdallah', (err, users)=>{
-    console.log(authors)
-})
+// authorModel.getAuthorsByFullName('Menna Abdallah', (err, users)=>{
+//     console.log(authors)
+// })
 
 module.exports = authorModel
