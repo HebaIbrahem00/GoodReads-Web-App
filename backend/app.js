@@ -35,7 +35,7 @@ app.use('/userpage' , userPageRoute);
 app.use('/categories', categoriesRouter);
 app.use('/author',authorRouter)
 app.use('/admin',adminRouter)
-
+//app.use('/uploads', express.static('uploads'));
 app.listen(PORT, () =>
     console.log(`server is listening at port ${PORT}`)
     

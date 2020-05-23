@@ -5,6 +5,9 @@ export const FormAddCategory = (props) => {
     console.log("ADD Form");
     const {tempName} = props.Category;
     const [categoryName,SetCategoryName]=useState({name:''});
+    function CloseModal(newValue) {
+        props.UpdateShowModal((!newValue));
+    }
     const changeHandler = (event)=>{
         SetCategoryName({[event.target.name]:event.target.value})
     }
@@ -15,6 +18,7 @@ export const FormAddCategory = (props) => {
         axios.post("http://localhost:5000/admin/category",categoryName)
         .then(response=>{console.log(response)})
         .catch(error=>{console.log(error)})
+        CloseModal(true);
     }
 
     return (
@@ -36,20 +40,20 @@ export const FormEditCategory = (props) => {
     console.log("Edit Form");
     const {tempName,tempID} = props.Category;
     const [categoryName,SetCategoryName]=useState({name:''});
-    const [loading,setLoading]=useState(false);
+    function CloseModal(newValue) {
+        props.UpdateShowModal((!newValue));
+    }
     const changeHandler = (event)=>{
         SetCategoryName({[event.target.name]:event.target.value})
-
     }
     const submitHandler = (event)=>{
-        setLoading(true);
         event.preventDefault();
         //event.stopPropagation();
         console.log(categoryName);
         axios.post(`http://localhost:5000/admin/category/update/${tempID}`,categoryName)
         .then(response=>{console.log(response)})
         .catch(error=>{console.log(error)})
-        setLoading(false);
+        CloseModal(true);
     }
 
     return (
@@ -61,10 +65,9 @@ export const FormEditCategory = (props) => {
                 <Form.Control type="name" name="name" defaultValue={tempName} placeholder="Enter Category Name " onChange={changeHandler}/>
             </Form.Group>
             <Button variant="primary" type="submit">
-                ADD Category
+                Edit Category
                 </Button>
         </Form>
-        {loading ? <div>Waiting.........</div>:<div></div>}
     </div>
     );
 }
@@ -78,6 +81,7 @@ export default function TableCategories(props) {
     const [addForm,setAddForm]=useState(false);
     const [error,setErrors]=useState(false);
     const handleClose = () => {setShow(false);}
+    const changeShowState = (value) => {setShow(value);}
     async function fetchData() {
         const url="http://localhost:5000/admin/category";
         const res=await fetch(url)
@@ -147,7 +151,7 @@ export default function TableCategories(props) {
                     </Modal.Header>
                     <Modal.Body>
                         {
-                            addForm?<div><FormAddCategory Category={{tempName,tempID}}/> {/*setAddForm(false)*/}</div>:<FormEditCategory Category={{tempName,tempID}}/>
+                            addForm?<div><FormAddCategory Category={{tempName,tempID}} UpdateShowModal={changeShowState}/> {/*setAddForm(false)*/}</div>:<FormEditCategory Category={{tempName,tempID}} UpdateShowModal={changeShowState}/>
                         }
                     </Modal.Body>
                     {/*<Modal.Footer>

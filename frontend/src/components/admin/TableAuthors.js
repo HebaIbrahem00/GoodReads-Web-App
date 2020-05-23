@@ -1,15 +1,10 @@
-import React from 'react'
+import React ,{useState,useEffect}from 'react'
 import {Table,Image,Modal,Button,Form} from 'react-bootstrap';
-export const FormAuthor=()=>{
+import axios  from 'axios';
+export const FormEditAuthor=()=>{
+console.log("Edit Form");
     return(
         <Form>
-                <Form.Group controlId="formAuthorID">
-                        <Form.Label>ID</Form.Label>
-                        <Form.Control type="ID" placeholder="Enter Author ID" />
-                        {/*<Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                        </Form.Text>*/}
-                </Form.Group>
                 <Form.Group>
                     <Form.Label>Enter Photo</Form.Label>
                     <Form.File 
@@ -36,15 +31,109 @@ export const FormAuthor=()=>{
         </Form>
     );
 }
-
+export const FormAddAuthor=(props)=>{
+//console.log("ADD Form");
+    const [author,setAuthor]=useState({ 
+            firstName:'',
+            lastName:'',
+            dob:'',
+            bio:'',
+            pic:''
+    });
+    function CloseModal(newValue) {
+        props.UpdateShowModal((!newValue));
+    }
+    const changeHandler = (event)=>{
+        setAuthor(...author,{[event.target.name]:event.target.value})
+	console.log([event.target.name]+"+" + event.target.value)
+    }
+    const submitHandler = (event)=>{
+        event.preventDefault();
+        //event.stopPropagation();
+        console.log(author);
+        axios.post("http://localhost:5000/admin/author",author)
+        .then(response=>{console.log(response)})
+        .catch(error=>{console.log(error)})
+        CloseModal(true);
+    }
+    const{firstName,lastName,dob,bio,pic}=author;
+    return(
+<div>
+        <Form onSubmit={submitHandler}>
+                <Form.Group controlId="formFirstName">
+                        <Form.Label>First Name</Form.Label>
+                        <input type="name" name="firstName" placeholder="Enter First Name" value={firstName} onChange={changeHandler}/>
+                </Form.Group>
+                <Form.Group controlId="formSecondName">
+                        <Form.Label>Second Name</Form.Label>
+                        <input type="name" name="lastName" placeholder="Enter Second Name" value={lastName} onChange={changeHandler}/>
+                </Form.Group>
+                <Form.Group controlId="formDateOfBirth">
+                        <Form.Label>Date of Birth</Form.Label>
+                        <input type="date" name="dob" placeholder="Enter Date of Birth" value={dob}onChange={changeHandler}/>
+                </Form.Group>
+                <Form.Group controlId="BIOS">
+                        <Form.Label>BIOS</Form.Label>
+                        <input type="text" name="bio" placeholder="Enter BIOS"value={bio} onChange={changeHandler}/>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Enter Photo</Form.Label>
+                    <input
+                            id="custom-file"
+                            label="Custom file input"
+                            custom
+			    type="file"
+                            name="pic"
+			    value={pic}
+                            onChange={changeHandler}
+                    />
+                </Form.Group>
+                
+                <Button variant="primary" type="submit">
+                        ADD Author
+                </Button>
+        </Form>
+	</div>
+    );
+}
 export default function TableAuthors(props) {
-    const [show, setShow] = React.useState(false);
+    const [show, setShow] = useState(false);
+    const [loading,setLoading]=useState(true);
+    const [Authors,setAuthors]=useState([]);
+    const [addForm,setAddForm]=useState(false);
+
+    const [tempID,setTempID]=useState('');
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const Authors = props.Authors;
+    //const Authors = props.Authors;
+    const changeShowState = (value) => {setShow(value);}
+    async function fetchData() {
+        const url="http://localhost:5000/admin/author";
+        const res=await fetch(url)
+            res.json()
+            .then(res=>{setAuthors(res); setLoading(false)})
+            .catch(err=>console.log(err));
+    }
+    useEffect(() => {
+            fetchData();
+           // console.log(Authors);
+        });
+    const removeHandler=()=>{
+        console.log("remove" + tempID);
+        axios.delete(`http://localhost:5000/admin/author/${tempID}`)
+        .then(response=>{console.log(response)})
+        .catch(error=>{console.log(error)})
+    }
+
     return (
         <div>
-            <button className="btn btn-primary" onClick={handleShow}>+</button>
+        {
+        loading? (<div>Loading ........</div>):(
+            <div>
+                 <button className="btn btn-primary"  onClick={()=>{
+                    setShow(true);
+                    setAddForm(true);
+                    }}>ADD</button>
             <Table className="mt-4" striped bordered hover size='sm'>
                 <thead>
                     <tr>
@@ -59,16 +148,16 @@ export default function TableAuthors(props) {
                 <tbody>
                     {
                         Authors.map(Author =>
-                            <tr key={Author.ID}>
-                                <td>{Author.ID}</td>
-                                <td><Image src={Author.Photo} alt="logo" size="80" width="80" roundedCircle /></td>
-                                <td>{Author.FirstName}</td>
-                                <td>{Author.SecondName}</td>
-                                <td>{Author.Birth}</td>
+                            <tr key={Author._id}>
+                                <td>{Author._id}</td>
+                                <td><Image src={Author.pic} alt="logo" size="80" width="80" roundedCircle /></td>
+                                <td>{Author.firstName}</td>
+                                <td>{Author.lastName}</td>
+                                <td>{Author.dob}</td>
                                 <td>
                                     <button className="btn btn-primary" onClick={handleShow}>edit</button>
                                     {" "}
-                                    <button className="btn btn-danger" onClick={() => this.deleteItem(Author.ID)}>remove</button>
+                                    <button className="btn btn-danger" onClick={() => {setTempID(Author._id); removeHandler();}}>remove</button>
                                 </td>
                             </tr>
                         )
@@ -81,16 +170,13 @@ export default function TableAuthors(props) {
                     <Modal.Title>Edit Author</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <FormAuthor />
+                {
+                    addForm?<div><FormAddAuthor  UpdateShowModal={changeShowState}/></div>:<FormEditAuthor  UpdateShowModal={changeShowState}/>
+                }
                 </Modal.Body>
-                {/*<Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Edit Book
-          </Button>
-        </Modal.Footer>*/}
             </Modal>
-
-
+            </div>
+       ) }
         </div>
     );
 }

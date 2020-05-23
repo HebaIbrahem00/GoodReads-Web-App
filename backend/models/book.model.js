@@ -5,17 +5,15 @@ const Schema = mongoose.Schema ;
 
 
 const bookSchema = new mongoose.Schema({
-  user:{type: Schema.Types.ObjectId ,ref:"User"},
-  cover: { type: String },
   name: { type: String ,required:true , unique:true},
-  //author: { type:Schema.Types.ObjectId,ref :"Author"},
+  details :{type:String},
+  category:{type:Schema.Types.ObjectId,ref :"categories"},   
+  cover: { type: String },
+  author: { type:Schema.Types.ObjectId,ref :"Author"},
   avgRating: { type: Number },
   rating: { type: Number },
-
-  category:{type:Schema.Types.ObjectId,ref :"categories"},
-  details :{type:String},
-  reviews : [{type :Object}] //each object key:value may be  username-review or fullname:review
-
+  reviews : [{type :Object}], //each object key:value may be  username-review or fullname:review
+  user:{type: Schema.Types.ObjectId ,ref:"User"}
 });
 
 
@@ -23,6 +21,21 @@ const bookSchema = new mongoose.Schema({
 bookSchema.methods.whatever = function(){
 
 }
+bookSchema.statics = {
+    list: function () {
+        return this.find({}).exec();
+    },
+    get: function (id) {
+        return this.findById(id).exec();
+    },
+    constructData: function (req) {
+        return req.file? {
+            ...req.body,
+            cover: "images/" + req.file.filename
+        } : req.body;
+    }
+}
+
 
 const bookModel = mongoose.model('Book',bookSchema);
 
