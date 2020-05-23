@@ -12,7 +12,7 @@ export const FormAddCategory = (props) => {
         event.preventDefault();
         //event.stopPropagation();
         console.log(categoryName);
-        axios.post("http://localhost:5000/categories",categoryName)
+        axios.post("http://localhost:5000/admin/category",categoryName)
         .then(response=>{console.log(response)})
         .catch(error=>{console.log(error)})
     }
@@ -46,7 +46,7 @@ export const FormEditCategory = (props) => {
         event.preventDefault();
         //event.stopPropagation();
         console.log(categoryName);
-        axios.post(`http://localhost:5000/categories/update/${tempID}`,categoryName)
+        axios.post(`http://localhost:5000/admin/category/update/${tempID}`,categoryName)
         .then(response=>{console.log(response)})
         .catch(error=>{console.log(error)})
         setLoading(false);
@@ -79,7 +79,7 @@ export default function TableCategories(props) {
     const [error,setErrors]=useState(false);
     const handleClose = () => {setShow(false);}
     async function fetchData() {
-        const url="http://localhost:5000/categories";
+        const url="http://localhost:5000/admin/category";
         const res=await fetch(url)
             res.json()
             .then(res=>{setCategories(res);setLoading(false)})
@@ -91,7 +91,7 @@ export default function TableCategories(props) {
         });
     const removeHandler=()=>{
         console.log("remove" + tempID);
-        axios.delete(`http://localhost:5000/categories/${tempID}`)
+        axios.delete(`http://localhost:5000/admin/category/${tempID}`)
         .then(response=>{console.log(response)})
         .catch(error=>{console.log(error)})
     }
