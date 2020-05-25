@@ -8,6 +8,7 @@ export default function TableAuthors(props) {
     const Authors=props.Authors;
     const [show, setShow] = useState(false);
     const [addForm,setAddForm]=useState(false);
+    const [AuthorTemp,setAuthorTemp]=useState({});
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
    
@@ -48,7 +49,7 @@ export default function TableAuthors(props) {
                                 <td>{Author.dob}</td>
 				<td>{Author.bio}</td>
                                 <td>
-                                    <button className="btn btn-primary" onClick={handleShow}>edit</button>
+                                    <button className="btn btn-primary" onClick={()=>{setAuthorTemp(Author);setShow(true)}}>edit</button>
                                     {" "}
                                     <button className="btn btn-danger" onClick={() => {removeHandler(Author._id)}}>remove</button>
                                 </td>
@@ -64,7 +65,7 @@ export default function TableAuthors(props) {
                 </Modal.Header>
                 <Modal.Body>
                 {
-                    addForm?<div><AddFormAuthor UpdateShowModal={changeShowState}/></div>:<EditFormAuthor  UpdateShowModal={changeShowState}/>
+                    addForm?<div><AddFormAuthor UpdateShowModal={changeShowState}/></div>:<EditFormAuthor Author={AuthorTemp} UpdateShowModal={changeShowState}/>
                 }
                 </Modal.Body>
             </Modal>

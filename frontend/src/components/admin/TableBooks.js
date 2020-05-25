@@ -1,14 +1,17 @@
 import React ,{useState,useEffect}from 'react'
 import AddFormBook from './AddFormBook' 
+import EditFormBook from './EditFormBook'
 import axios  from 'axios';
 import { Table,Form,Modal,Image,Button} from 'react-bootstrap';
 
 function TableBooks(props) {
     const Books=props.Books;
+    const[BookTemp,setBookTemp]=useState({});
     const [show, setShow] = React.useState(false);
     const [addForm,setAddForm]=useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
    
     const changeShowState = (value) => {setShow(value);}
 
@@ -46,7 +49,7 @@ function TableBooks(props) {
 		                    <td>{Book.author}</td>
 				    <td>{Book.details}</td>
 		                    <td>
-		                            <button className="btn btn-primary" onClick={handleShow}>edit</button>
+		                            <button className="btn btn-primary" onClick={()=>{setBookTemp(Book); setShow(true)}}>edit</button>
 		                            {" "}
 		                            <button className="btn btn-danger" onClick={() => {removeHandler(Book._id)}}> remove </button>
 		                    </td>
@@ -62,7 +65,7 @@ function TableBooks(props) {
 			<Modal.Body>
 			{
 			   addForm?<div><AddFormBook UpdateShowModal={changeShowState} Categories={props.Categories} Authors={props.Authors} /></div>
-			   :<AddFormBook  UpdateShowModal={changeShowState} />
+			   :<EditFormBook  UpdateShowModal={changeShowState} Book={BookTemp} Categories={props.Categories} Authors={props.Authors}/>
 			}
 			</Modal.Body>
 		</Modal>

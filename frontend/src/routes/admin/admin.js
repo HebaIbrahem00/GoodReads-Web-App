@@ -38,8 +38,8 @@ useEffect(() => {
             fetchBookData();
             fetchAuthorData();
 	    fetchCategoryData();
-           console.log("Authors" +authors);
-	   console.log("Categories" +authors);
+           console.log("Authors"+authors);
+	   console.log("Categories"+authors);
       	   console.log("Book" +authors);
         },[]);
     return (

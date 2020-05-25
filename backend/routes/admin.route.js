@@ -133,7 +133,7 @@ router.patch('/author/:id', upload.single('pic'), (req, res) => {
     })
 })
 
-router.post('/author/update/:id', upload.single('pic'), (req, res) => {
+router.post('/author/update/:id',upload.single('pic'), (req, res) => {
     const id = req.params.id
     authorModel.updateOne({
         _id: id
@@ -198,7 +198,7 @@ router.patch('/book/:id', upload.single('cover'), (req, res) => {
     })
 })
 
-router.post('/book/update/:id', upload.single('cover'), (req, res) => {
+router.post('/book/update/:id',upload.single('cover'), (req, res) => {
     const id = req.params.id
     BooksModel.updateOne({
         _id: id

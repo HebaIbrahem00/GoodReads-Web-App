@@ -48,28 +48,29 @@ export default class EditFormAuthor extends Component {
         formData.append('dob',this.state.dob)
         formData.append('bio',this.state.bio)
         console.log(formData);
-        axios.post("http://localhost:5000/admin/update/author", formData, {}).then(res => {console.log(res)})
+        axios.post(`http://localhost:5000/admin/author/update/${this.props.Author._id}`, formData, {}).then(res => {console.log(res)})
        	this.props.UpdateShowModal(false); 
     }
     render() {
         return (
 	<div>
+	{console.log(this.props.Author)}
         <Form onSubmit={this.onSubmit}>
                 <Form.Group controlId="formFirstName">
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control type="name" name="firstName" placeholder="Enter First Name" onChange={this.onFirstNameChange}/>
+                        <Form.Control type="name" name="firstName" placeholder="Enter First Name" defaultValue={this.props.Author.firstName} onChange={this.onFirstNameChange}/>
                 </Form.Group>
                 <Form.Group controlId="formSecondName">
                         <Form.Label>Second Name</Form.Label>
-                        <Form.Control type="name" name="lastName" placeholder="Enter Second Name"  onChange={this.onLastNameChange}/>
+                        <Form.Control type="name" name="lastName" placeholder="Enter Second Name" defaultValue={this.props.Author.lastName}  onChange={this.onLastNameChange}/>
                 </Form.Group>
                 <Form.Group controlId="formDateOfBirth">
                         <Form.Label>Date of Birth</Form.Label>
-                        <Form.Control type="date" name="dob" placeholder="Enter Date of Birth"  onChange={this.onDOBChange}/>
+                        <Form.Control type="date" name="dob" placeholder="Enter Date of Birth" defaultValue={this.props.Author.dob}   onChange={this.onDOBChange}/>
                 </Form.Group>
                 <Form.Group controlId="BIOS">
                         <Form.Label>BIOS</Form.Label>
-                        <Form.Control type="text" name="bio" placeholder="Enter BIOS" onChange={this.onBIOChange}/>
+                        <Form.Control type="text" name="bio" placeholder="Enter BIOS" defaultValue={this.props.Author.bio}  onChange={this.onBIOChange}/>
                 </Form.Group>
             
                  <Form.Group>
