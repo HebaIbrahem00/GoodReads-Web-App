@@ -1,13 +1,10 @@
 import React, { Component, useState } from 'react';
 import Navbar from '../../components/navbar/navbar';
 import Dropdown from '../../components/dropdown/dropdown'
-import ButtonRating from '../../components/rating/buttonRating';
-import LabelRating from '../../components/rating/labelRating';
 import axios from 'axios';
 import FlatList from 'flatlist-react';
 import StarRatingComponent from 'react-star-rating-component';
-
-
+import { Link } from 'react-router-dom'
 export default function Author({match:{params:{id}}})
 {
     const [author, setAuthor] = React.useState({});
@@ -20,7 +17,11 @@ export default function Author({match:{params:{id}}})
             if (response.data.pic) response.data.pic = "http://localhost:5000/" + response.data.pic;
             setAuthor(response.data);
         }).catch(console.error)
-        axios.get("http://localhost:5000/author/" + id + "/books").then((response) => {
+        axios.get("http://localhost:5000/author/" + id + "/books", {
+            params: {
+                user_id: JSON.parse(localStorage.currentUserInfo).user._id
+            }
+        }).then((response) => {
             response.data.forEach(book => {
                 if (book.cover) book.cover = "http://localhost:5000/" + book.cover;
             });
@@ -31,13 +32,10 @@ export default function Author({match:{params:{id}}})
 
     return(
         <div className="container">
-            
             <Navbar/>
-                <div className="card  mh-100 d-flex flex-row mt-2">
+                <div className="card  mh-100 d-flex flex-row mt-2" style={{height:"16rem"}}>
                     <div className="no-gutters d-flex flex-row">
-                        <div className="col-4 d-flex flex-column flex-center">
-                            <img src={author.pic} className="card-img col-8" alt="..."/>
-                        </div>
+                        <img src={author.pic} className="card-img col-2"style={{height:"16rem"}}/>
                         <div className="col-8 d-flex flex-column">
                             <div className="card-body">
                                 <h5 className="card-title">{author.firstName} {author.lastName}</h5>
@@ -55,17 +53,22 @@ export default function Author({match:{params:{id}}})
           renderItem={(book, idx) => {
             return (
                 <li key={idx}>
-                  <div className="card  mh-100 d-flex flex-row">
+                  <div className="card  mh-100 d-flex flex-row" style={{height:"10rem"}}>
                       <div className="no-gutters d-flex flex-row">
                           <div className="d-flex flex-column flex-center">
-                              <img src={book.cover} className="card-img col-8" alt="..."/>
+                              <img style={{height:"10rem"}} src={book.cover} className="card-img col-8"/>
                           </div>
                           <div className="col-6 d-flex flex-column">
                               <div className="card-body">
-                                  <h5 className="card-title">{book.name}</h5>
+                                  <Link to={"/books/" + book._id}><h5 className="card-title">{book.name}</h5></Link>
                                   <div className="d-flex flex-row">
-                                      <LabelRating/>
-                                      <p className="card-text text-muted"> {book.avgRating} </p>
+                                  <StarRatingComponent 
+                                    name="rate" 
+                                    starCount={5}
+                                    value={book.userReview.rating}
+                                    //onStarClick={this.onStarClick.bind(this)}
+                                    />
+                                      <p className="card-text text-muted"> {book.userReview.rating} </p>
                                       <p className="card-text text-muted"> - {book.reviews.length} Ratings</p>
                                   </div>
                               </div>
@@ -77,7 +80,7 @@ export default function Author({match:{params:{id}}})
                                     name="rate" 
                                     starCount={5}
                                     value={3}
-                                    //onStarClick={this.onStarClick.bind(this)}
+                                    onStarClick={()=>{}}
                                     />
                                   </div>
                           </div>

@@ -1,5 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import {ListGroup} from 'react-bootstrap';
+import Navbar from '../../components/navbar/navbar';
+
 //import axios from 'axios';
 function alertClicked() {
     alert('You clicked the third ListGroupItem');
@@ -28,6 +30,8 @@ const Category=()=>{
             */
         });
     return(
+        <div>
+        <Navbar/>
         <div className="mt-5">
             <ListGroup defaultActiveKey="#sport">
              {
@@ -40,6 +44,7 @@ const Category=()=>{
                     This one is a button
                   </ListGroup.Item>*/}
             </ListGroup>
+        </div>
         </div>
       );
 }

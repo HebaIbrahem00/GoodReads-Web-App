@@ -22,19 +22,24 @@ bookSchema.methods = {
   getReviews: function () {
       return this.reviews
   },
-  getDataTransferObject: function () {
+  getUserReview: function (userId) {
+      if (userReview = this.getReviews().filter((review) => review.user == userId))
+        return userReview[0];
+      else return null;
+  },
+  getDataTransferObject: function (userId) {
     return {
-      ...this._doc, avgRating: this.getAvgRating()
+      ...this._doc, avgRating: this.getAvgRating(), userReview: this.getUserReview(userId)
     };
   }
 }
 
 bookSchema.statics = {
   list: function () {
-      return this.find({}).populate("author").exec();
+      return this.find({}).populate("author").populate("category").exec();
   },
   get: function (id) {
-      return this.findById(id).populate("reviews.user").populate("author").exec();
+      return this.findById(id).populate("reviews.user").populate("author").populate("category").exec();
   },
   constructData: function (req) {
       return req.file? {

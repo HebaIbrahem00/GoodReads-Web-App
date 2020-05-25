@@ -17,6 +17,11 @@ authorSchema.methods = {
     },
     getBooks: function () {
         return this.books
+    },
+    getDataTransferObject: function (userId) {
+      return {
+        ...this._doc, books: this.getBooks().map((book) => book.getDataTransferObject(userId))
+      };
     }
 }
 

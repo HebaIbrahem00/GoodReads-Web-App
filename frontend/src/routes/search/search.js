@@ -3,7 +3,7 @@ import Navbar from '../../components/navbar/navbar';
 import axios from 'axios';
 import qs from 'qs';
 import FlatList from 'flatlist-react';
-
+import { Link } from 'react-router-dom'
 let loaded = false;
 
 export default function Search(props)
@@ -59,21 +59,13 @@ export default function Search(props)
           list={authors}
           renderItem={(author, idx) => {
             return (
-                <li key={idx}>
-                    <div className="card  mh-100 d-flex flex-row mt-2">
-                    <div className="no-gutters d-flex flex-row">
-                        <div className="col-4 d-flex flex-column flex-center">
-                            <img src={author.pic} className="card-img col-8" alt="..."/>
-                        </div>
-                        <div className="col-8 d-flex flex-column">
-                            <div className="card-body">
-                                <h5 className="card-title">{author.firstName} {author.lastName}</h5>
-                                <div><p>{author.dob}</p></div>
-                                <div><p className="card-text">{author.bio}</p></div>
-                            </div>
-                        </div>
+                <li key={idx} className="d-flex flex-row" className="d-flex flex-row">
+                  <div className="card mt-4" style={{width: "16rem",height:"16rem"}}>
+                    <img style={{alignSelf: "center", width: "14rem",height:"12rem"}} src={author.pic}/>
+                    <div className="card-body">
+                        <Link style={{alignSelf: "center"}} to={"/authors/" + author._id}>{author.firstName} {author.lastName}</Link>
                     </div>
-                </div>
+                    </div>
                 </li>
             )
           }}/>
@@ -83,36 +75,22 @@ export default function Search(props)
           renderItem={(book, idx) => {
             return (
                 <li key={idx}>
-                  <div className="card  mh-100 d-flex flex-row">
-                      <div className="no-gutters d-flex flex-row">
-                          <div className="d-flex flex-column flex-center">
-                              <img src={book.cover} className="card-img col-8" alt="..."/>
-                          </div>
-                          <div className="col-6 d-flex flex-column">
-                              <div className="card-body">
-                                  <h5 className="card-title">{book.name}</h5>
-                                  <div className="d-flex flex-row">
-                                      <p className="card-text text-muted"> {book.avgRating} </p>
-                                      <p className="card-text text-muted"> - {book.reviews.length} Ratings</p>
-                                  </div>
-                              </div>
-                          </div>
-                          <div className="col-2">
-                                  <div className="d-flex flex-row">
-                                  </div>
-                          </div>
-                      </div>
-                  </div>
+                  <div className="card mt-4" style={{width: "16rem",height:"16rem"}}>
+                    <img style={{alignSelf: "center", width: "14rem",height:"12rem"}} src={book.cover}/>
+                    <div className="card-body">
+                        <Link style={{alignSelf: "center"}} to={"/books/" + book._id}>{book.name}</Link>
+                    </div>
+                    </div>
                 </li>
             );
           }}/>
         <h3>Categories</h3>
         <FlatList
-        list={categories}
-        renderItem={(category, idx) => {
+        list={books}
+        renderItem={(book, idx) => {
             return (
                 <li key={idx}>
-                    {category.name}
+                    <Link style={{alignSelf: "center"}} to={"/categories/" + book.category._id}>{book.category.name}</Link>
                 </li>
             )
         }}/>

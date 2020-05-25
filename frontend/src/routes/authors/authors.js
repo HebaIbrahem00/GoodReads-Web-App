@@ -29,11 +29,11 @@ export default function Authors()
           list={authors}
           renderItem={(author, idx) => {
             return (
-                <li key={idx}>
-                  <div className="card" style={{width: "18rem"}}>
-                    <img className="card-img-top" src={author.pic} alt="Card image cap"/>
+                <li key={idx} className="d-flex flex-row wrap">
+                  <div className="card mt-4 ml-10 mr-10" style={{width: "16rem",height:"16rem"}}>
+                    <img style={{alignSelf: "center", width: "14rem",height:"12rem"}} src={author.pic}/>
                     <div className="card-body">
-                        <Link to={"/authors/" + author._id} className="btn btn-primary">{author.firstName} {author.lastName}</Link>
+                        <Link style={{alignSelf: "center"}} to={"/authors/" + author._id}>{author.firstName} {author.lastName}</Link>
                     </div>
                     </div>
                 </li>
