@@ -35,4 +35,4 @@ authorSchema.statics = {
     }
 }
 
-module.exports = mongoose.model('author', authorSchema)
+module.exports = mongoose.model('Author', authorSchema)
