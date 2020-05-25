@@ -7,20 +7,20 @@ const mongoose = require("mongoose");
 const DB_URL = process.env.DB_URL || 'mongodb://localhost:27017/goodreads' ;
 
 
-/*const author1 = new authorModel({firstName:"Robert", lastName:"Green"});
-author1.save(function (err) {
+/*const author = new authorModel({firstName:"Robert", lastName:"Green"});
+author.save(function (err) {
     if (err) return handleError(err);
-    else {console.log('saved') }
+    else {console.log(' author saved') }
   });*/
 
-  /*const book2 = new bookModel({name:"Mastery",author:{_id:"5ecb632270f76f7011fc1103"}});
-book2.save(function (err) {
+  /*const book = new bookModel({name:"Mastery",author:{_id:"5ecb781830b3ff05a059225f"}});
+book.save(function (err) {
     if (err) return handleError(err);
     else {console.log(' book saved') }
   });*/
 
-  /*const shelve4 = new shelveModel({name:"Currently Reading", book:{_id:"5ecb634cf016de706a98bd3a"}});
-shelve4.save(function (err) {
+  /*const shelve = new shelveModel({name:"Currently Reading", book:{_id:"5ecb7873a997090634d9824a"}});
+shelve.save(function (err) {
     if (err) return handleError(err);
     else {console.log( ' shelve saved') }
   });*/
@@ -44,6 +44,10 @@ shelve4.save(function (err) {
     author);}
 
   })
+  /*bookModel.deleteMany({  }, function (err) {
+    if (err) return handleError(err);
+    // deleted at most one tank document
+  });*/
 //Server EndPoints/ API 
 
 
@@ -79,7 +83,12 @@ router.post('/',(req,res,next)=>{    //this one shall be get ,
 router.patch('/',(req,res)=>   //for updating rating or shelve
 
 {
+    const id = req.body._id ;
+    const oldShelve = req.body._oldShelve;
+    const newShelve = req.body._newShelve;
 
+    
+ 
 })
 
 
