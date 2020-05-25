@@ -2,9 +2,6 @@ const router = require('express').Router();
 const CategoriesModel = require('../models/categoriesModel');
 const mongoose = require('mongoose');
 
-
-
-
 const connectDataBase=()=>{
         mongoose.connect('mongodb://localhost:27017/goodreads',{
             useNewUrlParser: true ,
@@ -31,6 +28,14 @@ router.get('/',(req,res)=>{
         });
 
     })
+})
+
+router.get('/search', (req, res) => {
+    CategoriesModel.search(req.query.q).then((categories) => {
+        res.json(categories)
+    }).catch((err) => {
+        res.status(400).json(err);
+    });
 })
 
 /*router.get('/:id',(req,res)=>{
