@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 export default function Footer(){
     return(
         <nav className="navbar navbar-expand-lg navbar-light col-12 footer-color">
@@ -10,19 +10,19 @@ export default function Footer(){
         <div className="collapse navbar-collapse col-12 footer-color" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto separator footer-color">
             <li className="nav-item active">
-                <a className="nav-link ml-5" href="#">Home <span className="ml-5">|⋮|</span><span className="sr-only">(current)</span></a>
+                <Link className="nav-link ml-5" to="/">Home <span className="ml-5">|⋮|</span><span className="sr-only">(current)</span></Link>
             </li>
             <li className="nav-item">
-                <a className="nav-link ml-5 " href="#">About Us<span className="ml-5 disabled">|⋮|</span></a>
+                <Link className="nav-link ml-5 " to="#">About Us<span className="ml-5 disabled">|⋮|</span></Link>
             </li>
             <li className="nav-item">
-                <a className="nav-link ml-5" href="#">Categories<span className="ml-5">|⋮|</span></a>
+                <Link className="nav-link ml-5" to="/categories">Categories<span className="ml-5">|⋮|</span></Link>
             </li>
             <li className="nav-item">
-                <a className="nav-link ml-5" href="#">Authors<span className="ml-5">|⋮|</span></a>
+                <Link className="nav-link ml-5" to="/authors">Authors<span className="ml-5">|⋮|</span></Link>
             </li>
             <li className="nav-item">
-                <a className="nav-link ml-5" href="#">Terms & Conditions</a>
+                <Link className="nav-link ml-5" to="#">Terms & Conditions</Link>
             </li>
             </ul>
         </div>
