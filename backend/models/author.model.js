@@ -7,7 +7,7 @@ const authorSchema = new mongoose.Schema({
     bio: String,
     pic: String,
     books: [{
-        type: mongoose.Schema.Types.ObjectId, ref:'book'
+        type: mongoose.Schema.Types.ObjectId, ref:'Book'  
     }]
 })
 
