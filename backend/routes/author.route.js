@@ -2,11 +2,19 @@ const express = require ("express")
 const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require("multer");
-const upload = multer({dest: 'uploads/'});//upload is a folder to upload all incoming files
+const upload = multer({dest: 'uploads/authors/'});//upload is a folder to upload all incoming files
 const authorModel = require('../models/author.model')
 
 router.get('/', (req, res) => {
     authorModel.list().then((authors) => {
+        res.json(authors)
+    }).catch((err) => {
+        res.status(400).json(err);
+    });
+})
+
+router.get('/search', (req, res) => {
+    authorModel.search(req.query.q).then((authors) => {
         res.json(authors)
     }).catch((err) => {
         res.status(400).json(err);
@@ -23,17 +31,14 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/books', (req, res) => {
     authorModel.get(req.params.id).then((author) => {
-        res.json(author.getBooks())
+        res.json(author.getBooks().map((book) => book.getDataTransferObject()))
     }).catch((err) => {
         res.status(400).json(err);
     });
 })
 
-//single here means single file
 router.post('/', upload.single('pic'), (req, res)=>{
     const author = new authorModel(authorModel.constructData(req));
-    const name = author.getFullName();
-    console.log(name)
     author.save((err, author)=>{
         if(!err) return res.json(author);
         res.json({

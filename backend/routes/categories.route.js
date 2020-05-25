@@ -13,6 +13,15 @@ router.get('/',(req,res)=>{
 
     })
 })
+
+router.get('/search', (req, res) => {
+    CategoriesModel.search(req.query.q).then((categories) => {
+        res.json(categories)
+    }).catch((err) => {
+        res.status(400).json(err);
+    });
+})
+
 router.get('/:id',(req,res)=>{
      res.send(`editing a post with id =${req.params.id}`)
 })
