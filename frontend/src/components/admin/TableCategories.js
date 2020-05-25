@@ -1,6 +1,7 @@
 import React ,{useEffect,useState}from 'react'
 import { Table, Modal, Button, Form ,Col} from 'react-bootstrap';
 import axios  from 'axios';
+
 export const FormAddCategory = (props) => {
     console.log("ADD Form");
     const {tempName} = props.Category;
@@ -73,37 +74,37 @@ export const FormEditCategory = (props) => {
 }
 
 export default function TableCategories(props) {
+    const categories=props.Categories;
     const [show, setShow] =useState(false);
     const [tempName,setTempName]=useState('');
     const [tempID,setTempID]=useState('');
-    const [categories,setCategories]=useState([]);
+    //const [categories,setCategories]=useState([]);
     const [loading,setLoading]=useState(true);
     const [addForm,setAddForm]=useState(false);
     const [error,setErrors]=useState(false);
     const handleClose = () => {setShow(false);}
     const changeShowState = (value) => {setShow(value);}
-    async function fetchData() {
+    /*async function fetchData() {
         const url="http://localhost:5000/admin/category";
         const res=await fetch(url)
             res.json()
             .then(res=>{setCategories(res);setLoading(false)})
             //.then(res => console.log(categories))
             .catch(err=>setErrors(err));
-    }
+    }*/
     useEffect(() => {
-            fetchData();
+            console.log();
+           // removeHandler();
         });
-    const removeHandler=()=>{
+    const removeHandler=(id)=>{
         console.log("remove" + tempID);
-        axios.delete(`http://localhost:5000/admin/category/${tempID}`)
+        axios.delete(`http://localhost:5000/admin/category/${id}`)
         .then(response=>{console.log(response)})
         .catch(error=>{console.log(error)})
     }
     
     return (
-        <div>
-        {
-        loading? (<div>Loading ........</div>):(
+       
             <div>
                 <button className="btn btn-primary"  onClick={()=>{
                     setTempName('');
@@ -135,8 +136,8 @@ export default function TableCategories(props) {
                                             }
                                         }>edit</button>
                                         {" "}
-                                        <button className="btn btn-danger" onClick={() => {setTempID(Category._id)
-                                                    removeHandler()}}>
+                                        <button className="btn btn-danger" onClick={() => {
+                                                    removeHandler(Category._id)}}>
                                        remove</button>
                                     </td>
                                 </tr>
@@ -147,11 +148,13 @@ export default function TableCategories(props) {
 
                 <Modal show={show} onHide={handleClose} animation={false}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Edit Author</Modal.Title>
+                        {addForm?<Modal.Title>ADD Category</Modal.Title>:<Modal.Title>Edit Category</Modal.Title>}
                     </Modal.Header>
                     <Modal.Body>
                         {
-                            addForm?<div><FormAddCategory Category={{tempName,tempID}} UpdateShowModal={changeShowState}/> {/*setAddForm(false)*/}</div>:<FormEditCategory Category={{tempName,tempID}} UpdateShowModal={changeShowState}/>
+                            addForm?<div><FormAddCategory Category={{tempName,tempID}} UpdateShowModal={changeShowState}/></div>
+			    :
+                             <FormEditCategory Category={{tempName,tempID}} UpdateShowModal={changeShowState}/>
                         }
                     </Modal.Body>
                     {/*<Modal.Footer>
@@ -161,7 +164,6 @@ export default function TableCategories(props) {
                     </Modal.Footer>*/}
                 </Modal>
             </div>
-        )}
-            </div>
+     
     );
 }

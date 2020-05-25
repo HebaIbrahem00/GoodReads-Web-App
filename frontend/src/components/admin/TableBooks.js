@@ -1,98 +1,71 @@
-import React from 'react'
+import React ,{useState,useEffect}from 'react'
+import AddFormBook from './AddFormBook' 
+import axios  from 'axios';
 import { Table,Form,Modal,Image,Button} from 'react-bootstrap';
 
-export const FormBook=()=>{
-    return(
-        <Form>
-                <Form.Group controlId="formAuthorID">
-                        <Form.Label>Book Name</Form.Label>
-                        <Form.Control type="name" placeholder="Enter Book Name" />
-                        {/*<Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                        </Form.Text>*/}
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Enter Photo</Form.Label>
-                    <Form.File 
-                            id="custom-file"
-                            label="Custom file input"
-                            custom
-                    />
-                </Form.Group>
-                <Form.Group controlId="Categor">
-                        <Form.Label>Categor</Form.Label>
-                        <Form.Control as="select">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                        </Form.Control>
-                </Form.Group>
-                <Form.Group controlId="Author">
-                        <Form.Label>Author</Form.Label>
-                        <Form.Control as="select">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                        </Form.Control>
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                        ADD Author
-                </Button>
-        </Form>
-    );
-}
-
 function TableBooks(props) {
+    const Books=props.Books;
     const [show, setShow] = React.useState(false);
+    const [addForm,setAddForm]=useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const Books = props.Books;
-    return (
-    <div>
-        <button className="btn btn-primary" onClick={handleShow}>+</button>
+   
+    const changeShowState = (value) => {setShow(value);}
 
-        <Table className="mt-4" striped bordered hover size='sm'>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Photo</th>
-                    <th>Name</th>
-                    <th>CategoryID</th>
-                    <th>AuthoID</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    Books.map(Book =>
-                        <tr key={Book.ID}>
-                            <td>{Book.ID}</td>
-                            <td><Image src={Book.Photo} alt="logo" size='100' width='100' /></td>
-                            <td>{Book.Name}</td>
-                            <td>{Book.CategoryID}</td>
-                            <td>{Book.AuthoID}</td>
-                            <td>
-                                    <button className="btn btn-primary" onClick={handleShow}>edit</button>
-                                    {" "}
-                                    <button className="btn btn-danger" onClick={() => this.deleteItem(Book.ID)}>remove</button>
-                            </td>
-                        </tr>
-                    )
-                }
-            </tbody>
-        </Table>
-            <Modal show={show} onHide={handleClose} animation={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Author</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <FormBook/>
-                </Modal.Body>
-            </Modal>
+    const removeHandler=(id)=>{
+        axios.delete(`http://localhost:5000/admin/book/${id}`)
+        .then(response=>{console.log(response)})
+        .catch(error=>{console.log(error)})
+    }
+    return (
+   	  <div>
+        	<button className="btn btn-primary" onClick={()=>{
+                    setShow(true);
+                    setAddForm(true);
+                    }}>ADD</button>
+		<Table className="mt-4" striped bordered hover size='sm'>
+		    <thead>
+		        <tr>
+		            <th>ID</th>
+		            <th>Photo</th>
+		            <th>Name</th>
+		            <th>CategoryID</th>
+		            <th>AuthoID</th>
+			    <th>Details</th>
+		            <th>Action</th>
+		        </tr>
+		    </thead>
+		    <tbody>
+		        {
+		            Books.map(Book =>
+		                <tr key={Book._id}>
+		                    <td>{Book._id}</td>
+		                    <td><Image src={Book.cover} alt="logo" size='100' width='100' /></td>
+		                    <td>{Book.name}</td>
+		                    <td>{Book.category}</td>
+		                    <td>{Book.author}</td>
+				    <td>{Book.details}</td>
+		                    <td>
+		                            <button className="btn btn-primary" onClick={handleShow}>edit</button>
+		                            {" "}
+		                            <button className="btn btn-danger" onClick={() => {removeHandler(Book._id)}}> remove </button>
+		                    </td>
+		                </tr>
+		            )
+		        }
+		    </tbody>
+		</Table>
+		<Modal show={show} onHide={handleClose} animation={false}>
+			<Modal.Header closeButton>
+			{addForm?<Modal.Title>ADD Book</Modal.Title>:<Modal.Title>Edit Book</Modal.Title>}
+			</Modal.Header>
+			<Modal.Body>
+			{
+			   addForm?<div><AddFormBook UpdateShowModal={changeShowState} Categories={props.Categories} Authors={props.Authors} /></div>
+			   :<AddFormBook  UpdateShowModal={changeShowState} />
+			}
+			</Modal.Body>
+		</Modal>
         </div>
     );
 }
