@@ -21,8 +21,6 @@ br {
 }
 
 .login-input {
-    background: #FFFFFF;
-    border-radius: 3px;
     border: #DCD6CC 1px solid;
     color: #333333;
     font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
