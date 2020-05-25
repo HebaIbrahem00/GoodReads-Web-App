@@ -4,7 +4,7 @@ const Schema = mongoose.Schema ;
 const bookSchema = new mongoose.Schema({
   cover: { type: String },
   name: { type: String ,required:true , unique:true},
-  author: { type:Schema.Types.ObjectId,ref :"author"},
+  author: { type:Schema.Types.ObjectId,ref :"Author"},
   category:{type:Schema.Types.ObjectId, ref: "categories"},
   details :{type:String},
   reviews : [{
@@ -31,36 +31,21 @@ bookSchema.methods = {
 
 bookSchema.statics = {
   list: function () {
-      return this.find({}).exec();
+      return this.find({}).populate("author").exec();
   },
   get: function (id) {
-      return this.findById(id).exec();
+      return this.findById(id).populate("reviews.user").populate("author").exec();
   },
   constructData: function (req) {
       return req.file? {
           ...req.body,
-          cover: "images/books/" + req.file.filename
+          cover: "images/" + req.file.filename
       } : req.body;
   },
   search: function (query) {
       return this.find({name: new RegExp(query)}).exec();
-  },
+  }
 }
-bookSchema.statics = {
-    list: function () {
-        return this.find({}).exec();
-    },
-    get: function (id) {
-        return this.findById(id).exec();
-    },
-    constructData: function (req) {
-        return req.file? {
-            ...req.body,
-            cover: "images/" + req.file.filename
-        } : req.body;
-    }
-}
-
 
 const bookModel = mongoose.model('Book', bookSchema);
 

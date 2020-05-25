@@ -2,7 +2,7 @@ const express = require ("express")
 const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require("multer");
-const upload = multer({dest: 'uploads/authors/'});//upload is a folder to upload all incoming files
+const upload = multer({dest: 'uploads'});//upload is a folder to upload all incoming files
 const authorModel = require('../models/author.model')
 
 router.get('/', (req, res) => {

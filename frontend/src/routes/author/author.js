@@ -5,13 +5,14 @@ import ButtonRating from '../../components/rating/buttonRating';
 import LabelRating from '../../components/rating/labelRating';
 import axios from 'axios';
 import FlatList from 'flatlist-react';
+import StarRatingComponent from 'react-star-rating-component';
 
-let loaded = false;
 
 export default function Author({match:{params:{id}}})
 {
     const [author, setAuthor] = React.useState({});
     const [books, setBooks] = React.useState([]);
+    const [loaded, setLoaded] = React.useState(false);
 
     if (!loaded)
     {
@@ -25,7 +26,7 @@ export default function Author({match:{params:{id}}})
             });
             setBooks(response.data);
         }).catch(console.error)
-        loaded = true;
+        setLoaded(true);
     }
 
     return(
@@ -72,7 +73,12 @@ export default function Author({match:{params:{id}}})
                           <div className="col-2">
                                   <div className="mt-3 mr-3"><Dropdown/></div>
                                   <div className="d-flex flex-row">
-                                      <ButtonRating/>
+                                  <StarRatingComponent 
+                                    name="rate" 
+                                    starCount={5}
+                                    value={3}
+                                    //onStarClick={this.onStarClick.bind(this)}
+                                    />
                                   </div>
                           </div>
                       </div>
