@@ -34,7 +34,7 @@ router.post('/',(req,res,next)=>{    //this one shall be get ,
     }
     else{
         console.log("all working")
-        shelveModel.find({}).populate('book').exec((err, books)=>  {
+        shelveModel.find({user :userID}).populate('book').exec((err, books)=>  {
             if(!err) { res.json(books); console.log("sent rsponse");}
         
           }

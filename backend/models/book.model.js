@@ -5,10 +5,10 @@ const bookSchema = new mongoose.Schema({
   cover: { type: String },
   name: { type: String ,required:true , unique:true},
   author: { type:Schema.Types.ObjectId,ref :"author"},
-  // category:{type:Schema.Types.ObjectId, ref: "categories"},
+  category:{type:Schema.Types.ObjectId, ref: "categories"},
   details :{type:String},
   reviews : [{
-    // user: {type: Schema.Types.ObjectId, ref: "User"},
+    user: {type: Schema.Types.ObjectId, ref: "User"},
     rating: { type: Number },
     body: String,
     date: Date
@@ -46,6 +46,21 @@ bookSchema.statics = {
       return this.find({name: new RegExp(query)}).exec();
   },
 }
+bookSchema.statics = {
+    list: function () {
+        return this.find({}).exec();
+    },
+    get: function (id) {
+        return this.findById(id).exec();
+    },
+    constructData: function (req) {
+        return req.file? {
+            ...req.body,
+            cover: "images/" + req.file.filename
+        } : req.body;
+    }
+}
+
 
 const bookModel = mongoose.model('Book', bookSchema);
 
