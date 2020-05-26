@@ -63,13 +63,15 @@ export default class AddFormBook extends Component {
     render() {
         return (
 	<div>
+	 {this.state.author=this.props.Authors[0]._id}
+         {this.state.category=this.props.Categories[0]._id}
         <Form onSubmit={this.onSubmit}>
                 <Form.Group controlId="formBookName">
                         <Form.Label>Book Name</Form.Label>
                         <Form.Control type="name" placeholder="Enter Book Name" onChange={this.onNameChange}/>
                 </Form.Group>
                 <Form.Group controlId="formBookDetails">
-                        <Form.Label>Book Name</Form.Label>
+                        <Form.Label>Book Details</Form.Label>
                         <Form.Control type="details" placeholder="Enter Details of Book" onChange={this.onDetailsChange}/>
                 </Form.Group>
                 <Form.Group>
@@ -83,14 +85,15 @@ export default class AddFormBook extends Component {
                 </Form.Group>
                 <Form.Group controlId="Categor">
                         <Form.Label>Categor</Form.Label>
-                        <Form.Control as="select" onChange={this.onCategoryChange}>
-                                {this.props.Categories.map(Category=><option>{Category._id}</option>)}
+                        <Form.Control as="select" onChange={this.onCategoryChange} defaultValue={this.props.Categories[0]._id}>
+                            	
+					{this.props.Categories.map(Category=><option key={Category._id}>{Category._id}</option>)}
                         </Form.Control>
                 </Form.Group>
                 <Form.Group controlId="Author">
                         <Form.Label>Author</Form.Label>
-                        <Form.Control as="select" onChange={this.onAuthorChange}>
-                                {this.props.Authors.map(Author=> <option>{Author._id}</option>)}
+                        <Form.Control as="select" onChange={this.onAuthorChange} defaultValue={this.props.Authors[0]._id}>
+                               {this.props.Authors.map(Author=><option key={Author._id}>{Author._id}</option>)}
                         </Form.Control>
                 </Form.Group>
                 <Button variant="primary" type="submit">
@@ -102,3 +105,4 @@ export default class AddFormBook extends Component {
         )
     }
 }
+//defaultValue={this.props.Categories[0]._id} defaultValue={this.props.Authors[0]._id}  key={Author._id}

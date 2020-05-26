@@ -26,7 +26,9 @@ const upload = multer({
       },
     fileFilter: fileFilter
 });
-
+//const upload = multer({dest: 'uploads/books/'});
+const upload1 = multer({dest: 'uploads/authors/'});
+//const upload2 = multer({dest: 'uploads/authors/'});
 router.get('/category',(req,res)=>{
     console.log("Get Method==>/categories/");
     console.log(req.body);
@@ -103,7 +105,7 @@ router.get('/author',(req, res)=>{
 	    });
 	*/
     })})
-router.post('/author', upload.single('pic'), (req, res)=>{
+router.post('/author', upload1.single('pic'), (req, res)=>{
     const author = new authorModel(authorModel.constructData(req));
     const name = author.getFullName();
     console.log(name)
@@ -115,7 +117,7 @@ router.post('/author', upload.single('pic'), (req, res)=>{
     })
 })
 
-router.patch('/author/:id', upload.single('pic'), (req, res) => {
+router.patch('/author/:id', upload1.single('pic'), (req, res) => {
     const id = req.params.id
     authorModel.updateOne({
         _id: id
@@ -133,7 +135,7 @@ router.patch('/author/:id', upload.single('pic'), (req, res) => {
     })
 })
 
-router.post('/author/update/:id',upload.single('pic'), (req, res) => {
+router.post('/author/update/:id',upload1.single('pic'), (req, res) => {
     const id = req.params.id
     authorModel.updateOne({
         _id: id
