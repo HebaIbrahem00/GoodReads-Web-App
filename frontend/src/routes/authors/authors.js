@@ -27,6 +27,7 @@ export default function Authors()
             <Navbar/>
             <FlatList
           list={authors}
+          numColumns={4}
           renderItem={(author, idx) => {
             return (
                 <li key={idx} className="d-flex flex-row wrap">

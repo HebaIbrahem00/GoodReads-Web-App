@@ -9,6 +9,7 @@ export default function Author({match:{params:{id}}})
 {
     const [author, setAuthor] = React.useState({});
     const [books, setBooks] = React.useState([]);
+    const [reviews, setReviews] = React.useState([]);
     const [loaded, setLoaded] = React.useState(false);
 
     if (!loaded)
@@ -28,6 +29,18 @@ export default function Author({match:{params:{id}}})
             setBooks(response.data);
         }).catch(console.error)
         setLoaded(true);
+    }
+
+    function setRating(value, prevValue, name) {
+        axios.put("http://localhost:5000/book/" + name + "/review", {
+            user_id: JSON.parse(localStorage.currentUserInfo).user._id,
+            rating: value
+        }).then((response) => {
+            if (response.status == 200)
+            {
+                setLoaded(false);
+            }
+        }).catch(console.error)
     }
 
     return(
@@ -65,10 +78,9 @@ export default function Author({match:{params:{id}}})
                                   <StarRatingComponent 
                                     name="rate" 
                                     starCount={5}
-                                    value={book.userReview.rating}
-                                    //onStarClick={this.onStarClick.bind(this)}
+                                    value={book.avgRating}
                                     />
-                                      <p className="card-text text-muted"> {book.userReview.rating} </p>
+                                      <p className="card-text text-muted"> {book.avgRating} </p>
                                       <p className="card-text text-muted"> - {book.reviews.length} Ratings</p>
                                   </div>
                               </div>
@@ -77,10 +89,10 @@ export default function Author({match:{params:{id}}})
                                   <div className="mt-3 mr-3"><Dropdown/></div>
                                   <div className="d-flex flex-row">
                                   <StarRatingComponent 
-                                    name="rate" 
+                                    name={book._id} 
                                     starCount={5}
-                                    value={3}
-                                    onStarClick={()=>{}}
+                                    value={book.userReview.rating}
+                                    onStarClick={setRating}
                                     />
                                   </div>
                           </div>

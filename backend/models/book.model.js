@@ -23,13 +23,18 @@ bookSchema.methods = {
       return this.reviews
   },
   getUserReview: function (userId) {
-      if (userReview = this.getReviews().filter((review) => review.user == userId))
+      if (userReview = this.getReviews().filter((review) => {
+        if (typeof review.user === 'object' && review.user !== null) return review.user._id == userId;
+        else review.user == userId
+      }))
         return userReview[0];
       else return null;
   },
   getDataTransferObject: function (userId) {
     return {
-      ...this._doc, avgRating: this.getAvgRating(), userReview: this.getUserReview(userId)
+      ...this._doc,
+      avgRating: this.getAvgRating(),
+      userReview: this.getUserReview(userId)? this.getUserReview(userId): {}
     };
   }
 }

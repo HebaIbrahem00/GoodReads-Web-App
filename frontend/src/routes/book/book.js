@@ -7,23 +7,37 @@ import FlatList from 'flatlist-react';
 import StarRatingComponent from 'react-star-rating-component';
 
 export default function Book({match:{params:{id}}}){
-    const [book, setBook] = React.useState({reviews: [], author: {}, category: {}});
+    const [book, setBook] = React.useState({reviews: [], author: {}, category: {}, userReview: {}});
     const [reviews, setReviews] = React.useState([]);
     const [loaded, setLoaded] = React.useState(false);
     
     if (!loaded)
     {
-        axios.get("http://localhost:5000/book/" + id).then((response) => {
+        axios.get("http://localhost:5000/book/" + id, {
+            params: {
+                user_id: JSON.parse(localStorage.currentUserInfo).user._id,
+            }
+        }).then((response) => {
             if (response.data.cover) response.data.cover = "http://localhost:5000/" + response.data.cover;
             setBook(response.data);
-            setReviews(response.data.reviews)
+            setReviews(response.data.reviews);
         }).catch(console.error)
         setLoaded(true);
     }
 
-    //function setRating(value, _, _) {
-        //Call axios backend add review or modify review api
-    // }
+    function setRating(value, prevValue, name) {
+        axios.put("http://localhost:5000/book/" + id + "/review", {
+            user_id: JSON.parse(localStorage.currentUserInfo).user._id,
+            rating: value
+        }).then((response) => {
+            if (response.status == 200)
+            {
+                if (response.data.cover) response.data.cover = "http://localhost:5000/" + response.data.cover;
+                setBook(response.data);
+                setReviews(response.data.reviews);
+            }
+        }).catch(console.error)
+    }
 
     return(
         <div className="container">
@@ -36,10 +50,10 @@ export default function Book({match:{params:{id}}}){
                             <Dropdown/>
                             <div className="d-flex flex-row ml-2">
                             <StarRatingComponent 
-                                    name="rate" 
+                                    name={book.userReview._id} 
                                     starCount={5}
-                                    value={reviews.rating}
-                                    onStarClick={console.log}
+                                    value={book.userReview.rating}
+                                    onStarClick={setRating}
                                     />
                             </div>
                         </div>
@@ -51,10 +65,10 @@ export default function Book({match:{params:{id}}}){
                             <div><Link to={"/categories/" + book.category._id}>{book.category.name}</Link></div>
                             <div className="d-flex flex-row">
                             <StarRatingComponent 
-                                    name="rate" 
+                                    name={book._id}  
                                     starCount={5}
                                     value={book.avgRating}
-                                    //onStarClick={this.onStarClick.bind(this)}
+                                    // onStarClick={this.onStarClick.bind(this)}
                                     />
                                 <p className="card-text text-muted"> {book.avgRating} </p>
                                 <p className="card-text text-muted"> - {book.reviews.length} Rating</p>
@@ -80,7 +94,7 @@ export default function Book({match:{params:{id}}}){
                                   <h5 className="card-title col-3">{review.user.username}</h5>
                                   <div className="d-flex flex-row">
                                   <StarRatingComponent 
-                                    name="rate" 
+                                    name={review._id} 
                                     starCount={5}
                                     value={review.rating}
                                     //onStarClick={this.onStarClick.bind(this)}
