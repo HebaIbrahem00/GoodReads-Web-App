@@ -3,8 +3,7 @@ import Navbar from '../../components/navbar/navbar';
 import axios from 'axios';
 import qs from 'qs';
 import FlatList from 'flatlist-react';
-import { Link } from 'react-router-dom'
-let loaded = false;
+import { Link } from 'react-router-dom';
 
 export default function Search(props)
 {
@@ -12,6 +11,7 @@ export default function Search(props)
     const [books, setBooks] = React.useState([]);
     const [categories, setCategories] = React.useState([]);
     const [authors, setAuthors] = React.useState([]);
+    const [loaded, setLoaded] = React.useState(false);
 
     if (!loaded)
     {
@@ -24,7 +24,6 @@ export default function Search(props)
                 if (book.cover) book.cover = "http://localhost:5000/" + book.cover;
             });
             setBooks(response.data);
-            console.log(response.data)
         }).catch(console.error)
 
         axios.get("http://localhost:5000/categories/search", {
@@ -33,7 +32,6 @@ export default function Search(props)
             }
         }).then((response) => {
             setCategories(response.data);
-            console.log(response.data)
         }).catch(console.error)
 
         axios.get("http://localhost:5000/author/search", {
@@ -45,10 +43,9 @@ export default function Search(props)
                 if (author.pic) author.pic = "http://localhost:5000/" + author.pic;
             });
             setAuthors(response.data);
-            console.log(response.data)
         }).catch(console.error)
 
-        loaded = true;
+        setLoaded(true);
     }
 
     return (
@@ -86,11 +83,11 @@ export default function Search(props)
           }}/>
         <h3>Categories</h3>
         <FlatList
-        list={books}
-        renderItem={(book, idx) => {
+        list={categories}
+        renderItem={(category, idx) => {
             return (
                 <li key={idx}>
-                    <Link style={{alignSelf: "center"}} to={"/categories/" + book.category._id}>{book.category.name}</Link>
+                    <Link style={{alignSelf: "center"}} to={"/categories/" + category._id}>{category.name}</Link>
                 </li>
             )
         }}/>
