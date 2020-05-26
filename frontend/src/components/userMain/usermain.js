@@ -26,13 +26,13 @@ export default function UserMain(props) {
         shelve: shelve,
       }
     }).then((response) => {
-        console.log(response.data);
+        console.log("response",response.data);
         console.log("axios workingg");
         setBooks(response.data)
       }).catch((error) => {
         console.log(error);
       });
-  });
+  },[]);
 
   /*
  async function getBooks(url,data){
@@ -112,7 +112,7 @@ export default function UserMain(props) {
       </div>
       <div className="rightpane">
         {" "}
-        <UserTable title={shelve} books={allbooks} />{" "}
+        <UserTable title={shelve} shelveBooks={allbooks} />{" "}
       </div>
     </div>
   );
