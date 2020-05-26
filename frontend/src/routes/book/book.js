@@ -10,17 +10,18 @@ export default function Book({match:{params:{id}}}){
     const [book, setBook] = React.useState({reviews: [], author: {}, category: {}, userReview: {}});
     const [reviews, setReviews] = React.useState([]);
     const [loaded, setLoaded] = React.useState(false);
-    
+    const [text, setText] = React.useState("");
     if (!loaded)
     {
         axios.get("http://localhost:5000/book/" + id, {
             params: {
-                user_id: JSON.parse(localStorage.currentUserInfo).user._id,
+                user_id: (localStorage.currentUserInfo && JSON.parse(localStorage.currentUserInfo).isAuthenticated)? JSON.parse(localStorage.currentUserInfo).user._id : null,
             }
         }).then((response) => {
             if (response.data.cover) response.data.cover = "http://localhost:5000/" + response.data.cover;
             setBook(response.data);
             setReviews(response.data.reviews);
+            if (response.data.userReview.body) setText(response.data.userReview.body);
         }).catch(console.error)
         setLoaded(true);
     }
@@ -32,31 +33,49 @@ export default function Book({match:{params:{id}}}){
         }).then((response) => {
             if (response.status == 200)
             {
-                if (response.data.cover) response.data.cover = "http://localhost:5000/" + response.data.cover;
-                setBook(response.data);
-                setReviews(response.data.reviews);
+                setLoaded(false);
             }
         }).catch(console.error)
     }
 
+    function submitComment() {
+        axios.put("http://localhost:5000/book/" + id + "/review", {
+            user_id: JSON.parse(localStorage.currentUserInfo).user._id,
+            body : text
+        }).then((response) => {
+            if (response.status == 200)
+            {
+                setLoaded(false);
+            }
+        }).catch(console.error)
+    }
+
+    let ratingBox = <div></div>
+
+    if (localStorage.currentUserInfo && JSON.parse(localStorage.currentUserInfo).isAuthenticated) {
+       ratingBox =  <div className="col-8 ml-2">
+                        <Dropdown/>
+                        <div className="d-flex flex-row ml-2">
+                        <StarRatingComponent 
+                            name={book.userReview._id} 
+                            starCount={5}
+                            value={book.userReview.rating}
+                            onStarClick={setRating}
+                        />
+                        </div>
+                        <input style={{width:"6rem"}} placeholder="Comment" value={text} onChange={(event) => setText(event.target.value)} />
+                        <button onClick={submitComment}>Comment</button>
+                    </div>
+    }
+   
     return(
         <div className="container">
             <Navbar/>
-            <div className="card  mh-100 d-flex flex-row ml-10" style={{height:"15rem"}}>
+            <div className="card  mh-100 d-flex flex-row ml-10" style={{height:"17rem"}}>
                 <div className="no-gutters d-flex flex-row">
                     <div className="col-4 d-flex flex-column flex-center">
                         <img src={book.cover} className="card-img col-6 ml-6" style={{height:"10rem"}}/>
-                        <div className="col-6 ml-2">
-                            <Dropdown/>
-                            <div className="d-flex flex-row ml-2">
-                            <StarRatingComponent 
-                                    name={book.userReview._id} 
-                                    starCount={5}
-                                    value={book.userReview.rating}
-                                    onStarClick={setRating}
-                                    />
-                            </div>
-                        </div>
+                        {ratingBox}
                     </div>
                     <div className="col-8 d-flex flex-column ml-0">
                         <div className="card-body ml-0">
@@ -65,10 +84,9 @@ export default function Book({match:{params:{id}}}){
                             <div><Link to={"/categories/" + book.category._id}>{book.category.name}</Link></div>
                             <div className="d-flex flex-row">
                             <StarRatingComponent 
-                                    name={book._id}  
+                                    name={book._id + "avg"}  
                                     starCount={5}
                                     value={book.avgRating}
-                                    // onStarClick={this.onStarClick.bind(this)}
                                     />
                                 <p className="card-text text-muted"> {book.avgRating} </p>
                                 <p className="card-text text-muted"> - {book.reviews.length} Rating</p>

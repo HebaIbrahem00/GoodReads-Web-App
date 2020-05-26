@@ -54,17 +54,17 @@ router.put('/:id/review', multer().none(), (req, res) => {
             }
             if (updated) userReview.date = Date.now();
         } else {
-            if (!(req.body.user_id && req.body.rating)) return res.status(400).json({
-                err: "You need to specify userId and rating"
+            if (!(req.body.user_id)) return res.status(400).json({
+                err: "You need to specify userId"
             });
 
             userReview = {
                 user: req.body.user_id,
-                rating: req.body.rating,
+                rating: req.body.rating? req.body.rating : 1,
                 body: req.body.body? req.body.body : "",
                 date: Date.now(),
             }
-            allReviews = [...allReviews, userReview];
+            allReviews = [userReview, ...allReviews];
             updated = true;
         }
         if (updated) {

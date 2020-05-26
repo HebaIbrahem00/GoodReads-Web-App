@@ -24,13 +24,14 @@ export default function Authors()
 
     return(
         <div className="container">
-            <Navbar/>
+            <Navbar setLoaded={setLoaded}/>
+            <div className="d-flex flex-row">
             <FlatList
           list={authors}
           numColumns={4}
           renderItem={(author, idx) => {
             return (
-                <li key={idx} className="d-flex flex-row wrap">
+                <li key={idx}>
                   <div className="card mt-4 ml-10 mr-10" style={{width: "16rem",height:"16rem"}}>
                     <img style={{alignSelf: "center", width: "14rem",height:"12rem"}} src={author.pic}/>
                     <div className="card-body">
@@ -41,6 +42,7 @@ export default function Authors()
             );
         }}
         />
+        </div>
         </div>
         )
 }
