@@ -22,31 +22,25 @@ export default class EditFormBook extends Component {
         }
     }
     onNameChange(e){
-        this.setState({name:e.target.value})
+        this.props.Book.name=e.target.value;
     }
     onDetailsChange(e){
-        this.setState({details:e.target.value})
+        this.props.Book.details=e.target.value
     }
     onAuthorChange(e){
-        this.setState({author:e.target.value})
+        this.props.Book.author=e.target.value
     }
     onCategoryChange(e){
-        this.setState({category:e.target.value})
+        this.props.Book.category=e.target.value
     }
 
     onCoverChange(e) {
-        this.setState({cover: e.target.files[0] })
+       this.props.Book.cover= e.target.files[0]
     }
     onSubmit(e) {
         e.preventDefault()
-        const formData = new FormData()
-        formData.append('name',this.state.name)
- 	formData.append('details',this.state.details)
-        formData.append('cover', this.state.cover)
-        formData.append('category',this.state.category)
-        formData.append('author',this.state.author)
-        console.log(formData);
-        axios.post(`http://localhost:5000/admin/book/update/${this.props.Book._id}`, formData, {}).then(res => {console.log(res)})
+        console.log(this.props.Book);
+        axios.post(`http://localhost:5000/admin/book/update/${this.props.Book._id}`,this.props.Book, {}).then(res => {console.log(res)})
        	this.props.UpdateShowModal(false); 
     }
 	render() {

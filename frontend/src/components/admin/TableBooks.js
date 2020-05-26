@@ -67,8 +67,7 @@ function TableBooks(props) {
 		                    <td>{Book.author}</td>
 				    <td>{Book.details}</td>
 		                    <td>
-		                            <button className="btn btn-primary" onClick={()=>{
-												setBookTemp(Book); setShow(true)}}>edit</button>
+		                            <button className="btn btn-primary" onClick={()=>{setBookTemp(Book); setShow(true)}}>edit</button>
 		                            {" "}
 		                            <button className="btn btn-danger" onClick={() => {removeHandler(Book._id)}}> remove </button>
 		                    </td>
@@ -82,8 +81,7 @@ function TableBooks(props) {
 			{addForm?<Modal.Title>ADD Book</Modal.Title>:<Modal.Title>Edit Book</Modal.Title>}
 			</Modal.Header>
 			<Modal.Body>
-			{
-				
+			{	
 			   addForm?<div><AddFormBook UpdateShowModal={changeShowState} Categories={props.Categories} Authors={props.Authors} /></div>
 			   :<EditFormBook  UpdateShowModal={changeShowState} Book={BookTemp} Categories={props.Categories} Authors={props.Authors}/>
 			}
@@ -93,8 +91,6 @@ function TableBooks(props) {
 			<Modal.Header closeButton>
 				{messageError}
 			</Modal.Header>
-			<Modal.Body>
-			</Modal.Body>
 		</Modal>
         </div>
     );
