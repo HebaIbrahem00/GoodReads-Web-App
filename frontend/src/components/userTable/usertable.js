@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import Paginate from "../pagination/paginate.js";
 import { NavLink } from "react-router-dom";
@@ -31,7 +33,7 @@ export default function UserTable(props) {
         <table className="table  table-bordered" >
           <thead style={{display:"block"}}>
             <tr>
-                <tr>
+                <>
                 
               <th scope="col">Cover</th>
               <th scope="col">Name </th>
@@ -39,7 +41,7 @@ export default function UserTable(props) {
               <th scope="col">Avg Rating</th>
               <th scope="col">Rating</th>
               <th scope="col">Shelve</th>
-              </tr>
+              </>
             </tr>
           </thead>
 
@@ -48,21 +50,23 @@ export default function UserTable(props) {
             {props.shelveBooks.map((shelve, index) => (
               <tr >
                 {shelve.book.map((book, index) => (
-                  <tr>
+                 
+                 <tr>
+                 <>
                     <td>
                       <img src="https://image.flaticon.com/icons/svg/166/166088.svg"></img>
                     </td>
 
                     <td>
                       <NavLink
-                        to="/books/`{id}`"
+                        to="/books/`{book._id}`"
                         style={{ textDecoration: "underline" }}
                 >{book.name}</NavLink>
                     </td>
 
                     <td>
                       <NavLink
-                        to="/about"
+                        to="/authors/`{book.author._id}`"
                         style={{ textDecoration: "underline" }}
                       >
                         {book.author.firstName +"  "+ book.author.lastName || "None"}
@@ -73,10 +77,12 @@ export default function UserTable(props) {
                       <ButtonRating />
                     </td>
                     <td>
-                      {" "}
-                      <Dropdown shelve={props.title} />{" "}
+                      
+                      <Dropdown shelve={shelve.name} bookid={book._id} />
                     </td>
+                    </>
                     </tr>
+                    
                 ))}
               </tr>
               
