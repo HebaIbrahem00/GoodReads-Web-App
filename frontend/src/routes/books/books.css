@@ -1,0 +1,18 @@
+.card-wrapper{
+    margin-top: 50px;
+}
+
+.loader {
+    display: inline-block;
+    margin-top: 200px;
+    margin-right: 50%;
+    position: fixed;
+    top: 20%;
+    left: 50%; 
+    transform: translate(-50%, -50%)
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+}
