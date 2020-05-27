@@ -1,69 +1,140 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import './populars.css'
-import cover from '../../assets/cover.jpg'
-import author from '../../assets/author.jpg'
+import { Link } from 'react-router-dom'
 
+
+import { FaAngleDoubleRight } from 'react-icons/fa';
+import PobularCard from "./popularcard/popularcard"
+import Loader from 'react-loader-spinner'
 
 
 export default function Populars() {
+    const [Books, setBooks] = useState([]);
+    const [booksLoading, setBooksLoading] = useState(true);
+
+    const [Authors, setAuthors] = useState([]);
+    const [authorisLoading, setAuthorssLoading] = useState(true);
 
 
-    return (
-            <div className="row ">
+    useEffect(() => {
+        axios.get('http://localhost:5000/admin/book')
+            .then(response => {
+                if (response.data) {
+                    setBooks(response.data)
+                    setBooksLoading(false)
+                    console.log(response.data);
+                } else {
+                    alert('Failed to fectch product datas')
+                }
+            })
+    }, []);
 
-                <div className="col-lg-12 col-sm-4 col-12 ">
-                    <div className="row main-box-layout">
-                        <div className="col-lg-12 col-sm-12 col-12 box box1">
-                            <div className="label">
-                                <h3><span className="title">Popular Books</span></h3>
-                            </div>
-                            
+    useEffect(() => {
+        axios.get('http://localhost:5000/admin/author')
+            .then(response => {
+                console.log("authors");
 
-                            <div className="col-lg-12 gallery"> 
-                                <a href='/' className="gallery-item">
-                                    <img src={cover} className="gallery-img" alt='img' />
-                                </a>
+                if (response.data) {
+                    console.log("authors")
+                    setAuthors(response.data)
+                    setAuthorssLoading(false)
+                    console.log(response.data);
+                } else {
+                    alert('Failed to fectch product datas')
+                }
+            })
+    }, []);
 
-                                <a href='/' className="gallery-item">
-                                    <img src={cover} className="gallery-img" alt='img' />
-                                </a>
 
-                                <a href='/' className="gallery-item">
-                                    <img src={cover}  className="gallery-img" alt='' />
-                                </a>
-                             </div>
 
-                        </div>
-
-                    </div>
-                </div>
-
-                <div className="col-lg-12 col-sm-4 col-12 ">
-                    <div className="row main-box-layout">
-
-                        <div className="col-lg-12 col-sm-12 col-12 box box2">
-                            <div className="label">
-                                <h3 className="title">Popular Authors</h3>
-                            </div>
-
-                            <div className="col-lg-12 gallery"> 
-                                <a href='/' className="gallery-item">
-                                    <img src={author} className="gallery-img" alt='img' />
-                                </a>
-
-                                <a href='/' className="gallery-item">
-                                    <img src={author} className="gallery-img" alt='img' />
-                                </a>
-
-                                <a href='/' className="gallery-item">
-                                    <img src={author}  className="gallery-img" alt='img' />
-                                </a>
-                             </div>
-                        </div>
-
+    const RenderBooks = () => {
+        return (
+            <div>
+                <div className="gallery">
+                    <div className="row ">
+                        {Books.map((book) => <PobularCard book={book} />)}
                     </div>
                 </div>
 
             </div>
+        )
+    }
+
+    const RenderAuthors = () => {
+        return (
+            <div>
+                <div className="gallery">
+                    <div className="row ">
+                        {Authors.map((author) => <PobularCard author={author} />)}
+                    </div>
+
+                </div>
+            </div>
+
+        )
+    }
+
+
+    const LoadingSpinner = () => {
+        return (
+            <div className="loader">
+                <Loader
+                    type="Bars"
+                    color="#f2f2f2"
+                    height={100}
+                    width={100}
+                    timeout={3000} //3 secs
+                />
+            </div>
+        );
+    }
+
+
+    return (
+
+        <div className="col-lg-12 col-sm-4  ">
+            <div className="row main-box-layout">
+
+                <div className="col box box1">
+
+                    <div className="label">
+                        <h3><span className="title">Popular Books</span></h3>
+                    </div>
+
+                    <div className="row">
+                        {booksLoading ? <LoadingSpinner /> : <RenderBooks />}
+
+                        <Link className="explore-icon" to="/books">
+                            <FaAngleDoubleRight />
+                        </Link>
+                    </div>
+                </div>
+
+            </div>
+
+            <div className="row main-box-layout">
+
+                <div className="col box box2">
+
+                    <div className="label">
+                        <h3><span className="title">Popular Authors</span></h3>
+                    </div>
+
+                    <div className="row">
+                        {authorisLoading ? <LoadingSpinner /> : <RenderAuthors />}
+
+                        <Link className="explore-icon" to="/authors">
+                            <FaAngleDoubleRight />
+                        </Link>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+        </div>
     )
 }

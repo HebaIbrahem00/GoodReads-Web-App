@@ -1,12 +1,15 @@
 import React, { useContext, useEffect } from 'react'
-import './login.css'
+import { useHistory } from "react-router-dom";
 
 import LoginForm from './loginForm'
 import AuthService from '../../services/authService'
 import { AuthContext } from '../../store/AuthContext';
+import './login.css'
 
 
 const Login = props => {
+    const history = useHistory();
+ 
     const { handleChange, handleSubmit, values, resetForm } = LoginForm(submit);
     const { setCurrentUserInfo } = useContext(AuthContext);
 
@@ -23,7 +26,9 @@ const Login = props => {
                     type: "LOGIN",
                     payload: response
                 })
-                // props.history.push('/');
+                const message = { msgBody:"Welcome"}
+                updatMessage(message)                
+                history.push("/userpage");
             }
             else
                 updatMessage(message)
