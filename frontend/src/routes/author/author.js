@@ -9,7 +9,6 @@ export default function Author({match:{params:{id}}})
 {
     const [author, setAuthor] = React.useState({});
     const [books, setBooks] = React.useState([]);
-    const [reviews, setReviews] = React.useState([]);
     const [loaded, setLoaded] = React.useState(false);
 
     if (!loaded)
@@ -20,7 +19,7 @@ export default function Author({match:{params:{id}}})
         }).catch(console.error)
         axios.get("http://localhost:5000/author/" + id + "/books", {
             params: {
-                user_id: JSON.parse(localStorage.currentUserInfo).user._id
+                user_id: (localStorage.currentUserInfo && JSON.parse(localStorage.currentUserInfo).isAuthenticated)? JSON.parse(localStorage.currentUserInfo).user._id : null,
             }
         }).then((response) => {
             response.data.forEach(book => {
@@ -43,6 +42,28 @@ export default function Author({match:{params:{id}}})
         }).catch(console.error)
     }
 
+    function ratingStars(book)
+    {
+        let ret = <div></div>
+    
+        if (localStorage.currentUserInfo && JSON.parse(localStorage.currentUserInfo).isAuthenticated) {
+            ret = 
+            <div className="col-2">
+                <div className="mt-3 mr-3"><Dropdown/></div>
+                <div className="d-flex flex-row">
+                <StarRatingComponent 
+                    name={book._id} 
+                    starCount={5}
+                    value={book.userReview.rating}
+                    onStarClick={setRating}
+                />
+                </div>
+            </div>
+        }
+
+        return ret;
+    }
+
     return(
         <div className="container">
             <Navbar/>
@@ -61,9 +82,9 @@ export default function Author({match:{params:{id}}})
             
             <div className="mt-lg-3 ml-3">
                 <h3>Author's Books</h3>
-            <FlatList
-          list={books}
-          renderItem={(book, idx) => {
+                <FlatList
+                    list={books}
+                    renderItem={(book, idx) => {
             return (
                 <li key={idx}>
                   <div className="card  mh-100 d-flex flex-row" style={{height:"10rem"}}>
@@ -76,26 +97,16 @@ export default function Author({match:{params:{id}}})
                                   <Link to={"/books/" + book._id}><h5 className="card-title">{book.name}</h5></Link>
                                   <div className="d-flex flex-row">
                                   <StarRatingComponent 
-                                    name="rate" 
+                                    name={book._id + "avg"}
                                     starCount={5}
                                     value={book.avgRating}
                                     />
-                                      <p className="card-text text-muted"> {book.avgRating} </p>
+                                      <p className="card-text text-muted"> {book.avgRating}</p>
                                       <p className="card-text text-muted"> - {book.reviews.length} Ratings</p>
                                   </div>
                               </div>
                           </div>
-                          <div className="col-2">
-                                  <div className="mt-3 mr-3"><Dropdown/></div>
-                                  <div className="d-flex flex-row">
-                                  <StarRatingComponent 
-                                    name={book._id} 
-                                    starCount={5}
-                                    value={book.userReview.rating}
-                                    onStarClick={setRating}
-                                    />
-                                  </div>
-                          </div>
+                          {ratingStars(book)}
                       </div>
                   </div>
                 </li>

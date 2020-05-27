@@ -4,14 +4,21 @@ import React, { useState, useEffect } from "react";
 import Paginate from "../pagination/paginate.js";
 import { NavLink } from "react-router-dom";
 import "./usertable.css";
-import ButtonRating from "../rating/buttonRating";
 import Dropdown from "./dropdown";
+import StarRatingComponent from 'react-star-rating-component';
+import axios from 'axios';
 
 /** started on 8/5/2020 */
 /**  we can type "rfc" and then enter and it will create a default react functional component, that's because of ES7 react Extension */
 
 export default function UserTable(props) {
   console.log("books at table ", props.shelveBooks);
+  function setRating(value, prevValue, name) {
+    axios.put("http://localhost:5000/book/" + name + "/review", {
+        user_id: JSON.parse(localStorage.currentUserInfo).user._id,
+        rating: value
+    }).then((response) => null).catch(console.error)
+}
   return (
     <div className="card text-center">
       <div className="card-header">
@@ -72,9 +79,18 @@ export default function UserTable(props) {
                         {book.author.firstName +"  "+ book.author.lastName || "None"}
                       </NavLink>
                     </td>
-                    <td>  avg rating </td>
+                    <td>  <StarRatingComponent 
+                                    name={book._id + "avg"} 
+                                    starCount={5}
+                                    value={book.avgRating}
+                                /> </td>
                     <td>
-                      <ButtonRating />
+                    <StarRatingComponent 
+                                    name={book._id} 
+                                    starCount={5}
+                                    value={book.userReview.rating}
+                                    onStarClick={setRating}
+                                    />
                     </td>
                     <td>
                       
