@@ -45,7 +45,7 @@ export default function Navbar(setLoaded){
             <div className='col-md-3'>
                 <ul className="navbar-nav mr-auto">
                 <li className="nav-item active">
-                    <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
+                    <Link className="nav-link" to="/userpage">Home <span className="sr-only">(current)</span></Link>
                 </li>
                 <li className="nav-item">
                     <Link className="nav-link" to="/categories">Categories</Link>
