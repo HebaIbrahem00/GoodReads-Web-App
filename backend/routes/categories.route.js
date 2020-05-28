@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const CategoriesModel = require('../models/categories.model');
+const bookModel = require("../models/book.model");
 router.get('/',(req,res)=>{
     console.log("Get Method==>/categories/");
     console.log(req.body);
@@ -26,5 +27,19 @@ router.get('/:id',(req,res)=>{
      res.send(`editing a post with id =${req.params.id}`)
 })
 
+router.post('/:id',(req,res)=>{
+    const categoryid =req.body.catid ;
 
+    bookModel
+    .find({category:categoryid})
+    .populate('author')
+    .exec((err, books) => {
+      if (!err) {
+        res.json(books);
+        console.log("sent rsponse");
+      }
+    });
+
+
+})
 module.exports = router;
