@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { Component, useState } from 'react';
 import Navbar from '../../components/navbar/navbar';
 import Dropdown from '../../components/dropdown/dropdown'
@@ -20,6 +21,7 @@ export default function Book({match:{params:{id}}}){
         }).then((response) => {
             if (response.data.cover) response.data.cover = "http://localhost:5000/" + response.data.cover;
             setBook(response.data);
+            console.log("book dataaa", response.data)
             setReviews(response.data.reviews);
             if (response.data.userReview.body) setText(response.data.userReview.body);
         }).catch(console.error)
@@ -54,7 +56,7 @@ export default function Book({match:{params:{id}}}){
 
     if (localStorage.currentUserInfo && JSON.parse(localStorage.currentUserInfo).isAuthenticated) {
        ratingBox =  <div className="col-8 ml-2">
-                        <Dropdown/>
+                        <Dropdown book={id}/>
                         <div className="d-flex flex-row ml-2">
                         <StarRatingComponent 
                             name={book.userReview._id} 
