@@ -7,9 +7,11 @@ import Book from './routes/book/book';
 import Author from './routes/author/author';
 import Authors from './routes/authors/authors';
 import Category from './routes/category/Category';
+import CategoryID from './routes/category/categoryID';
 import Search from './routes/search/search';
 import Books from './routes/books/books';
 import UserPage from './routes/UserPage/userpage';
+
 
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/bootstrap/dist/js/bootstrap.js';
@@ -34,6 +36,7 @@ function App() {
         <Route exact path="/books" component={Books}/>
 
         <Route exact path="/categories" component={Category}/>
+        <Route exact path="/categories/:id" component={CategoryID}/>
         </div>
       </BrowserRouter>
   );
