@@ -5,6 +5,7 @@
 .header{
     background-image: linear-gradient(to left,#e2e0d1 ,#fafbf6 ,#e2e0d1);
     height: 450px;
+
 }
 
 /* ************* section 1 **************** */
@@ -15,6 +16,8 @@
 .sec01 .logo {
     margin-left: 100px;
     margin-top: 20px;
+    width:200px;
+    height: 50px;
 }
 
 
@@ -25,6 +28,8 @@
 
 .sec02 .headline {
     margin-top: 50px;
+    width: 350px;
+    height: 70px;
 }
 
 .sec02 .register-box .signup-wrapper{
