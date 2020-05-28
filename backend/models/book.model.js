@@ -12,7 +12,8 @@ const bookSchema = new mongoose.Schema({
     rating: { type: Number },
     body: String,
     date: Date
-  }]
+  }],
+  shelve:{type:Schema.Types.ObjectId,ref :"Shelve"}
 });
 
 bookSchema.methods = {
@@ -44,7 +45,7 @@ bookSchema.statics = {
       return this.find({}).populate("author").populate("category").exec();
   },
   get: function (id) {
-      return this.findById(id).populate("reviews.user").populate("author").populate("category").exec();
+      return this.findById(id).populate("reviews.user").populate("author").populate("category").populate("shelve").exec();
   },
   constructData: function (req) {
       return req.file? {
