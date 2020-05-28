@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import Paginate from "../pagination/paginate.js";
-import { NavLink } from "react-router-dom";
+import { NavLink ,Link } from "react-router-dom";
 import "./usertable.css";
 import Dropdown from "./dropdown";
 import StarRatingComponent from 'react-star-rating-component';
@@ -13,14 +13,18 @@ import axios from 'axios';
 
 export default function UserTable(props) {
   console.log("books at table ", props.shelveBooks);
+
+
   function setRating(value, prevValue, name) {
     axios.put("http://localhost:5000/book/" + name + "/review", {
         user_id: JSON.parse(localStorage.currentUserInfo).user._id,
         rating: value
     }).then((response) => null).catch(console.error)
 }
+
+
   return (
-    <div className="card text-center">
+    <div className="card text-center main">
       <div className="card-header">
         <ul className="nav nav-pills card-header-pills">
           <li className="nav-item">
@@ -66,16 +70,15 @@ export default function UserTable(props) {
 
                     <td>
                       <NavLink
-                        to="/books/`{book._id}`"
-                        style={{ textDecoration: "underline" }}
-                >{book.name}</NavLink>
+                       to={"/books/" + book._id}
+                       style={{textDecoration:"underline"}} >
+                {book.name}</NavLink>
                     </td>
 
                     <td>
-                      <NavLink
-                        to="/authors/`{book.author._id}`"
-                        style={{ textDecoration: "underline" }}
-                      >
+                    <NavLink
+                       to={"/authors/" + book.author._id}
+                       style={{textDecoration:"underline"}}>
                         {book.author.firstName +"  "+ book.author.lastName || "None"}
                       </NavLink>
                     </td>
@@ -88,7 +91,7 @@ export default function UserTable(props) {
                     <StarRatingComponent 
                                     name={book._id} 
                                     starCount={5}
-                                    value={book.userReview.rating}
+                                    value={book.reviews.rating}
                                     onStarClick={setRating}
                                     />
                     </td>
