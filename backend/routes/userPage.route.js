@@ -18,7 +18,7 @@ book.save(function (err) {
     else {console.log(' book saved') }
   });*/
 
-/*const shelve = new shelveModel({name:"Currently Reading", book:{_id:"5ecd8611406c231844a0e5cd"}});
+/*const shelve = new shelveModel({name:"Currently Reading", book:{_id:"5ecdf7c9d3458848641b65d5"}});
 shelve.save(function (err) {
     if (err) return handleError(err);
     else {console.log( ' shelve saved') }
@@ -30,21 +30,21 @@ bookModel.find({}).exec((err, books) => {
   }
 });
 
-shelveModel.find({}).exec((err, shelves) => {
+/*shelveModel.find({}).exec((err, shelves) => {
   if (!err) {
     console.log("shelve db ", shelves);
   }
-});
+});*/
 
-authorModel.find({}).exec((err, author) => {
+/*authorModel.find({}).exec((err, author) => {
   if (!err) {
     console.log("author db ", author);
   }
-});
-/*shelveModel.deleteMany({  }, function (err) {
+});*/
+shelveModel.deleteMany({  }, function (err) {
     if (err) return handleError(err);
     // deleted at most one tank document
-  });*/
+  });
 //Server EndPoints/ API
 
 router.post("/", (req, res, next) => {
@@ -61,9 +61,9 @@ router.post("/", (req, res, next) => {
   }
 
   if (!all) {
-    console.log("not all working"); //don't forget to add user:userID to both finds at the end
+    console.log("not all working"); 
     shelveModel
-      .find({ name: shelve })
+      .find({ name: shelve,user:userID })
       .populate({
         path: "book",
         populate: [{ path: "author", model: "Author" }],
@@ -77,7 +77,7 @@ router.post("/", (req, res, next) => {
   } else {
     console.log("all working");
     shelveModel
-      .find({})
+      .find({user:userID})
       .populate({
         path: "book",
         populate: [{ path: "author", model: "Author" }],
@@ -102,13 +102,14 @@ router.patch(
     const newShelve = req.body._newShelve;
     const bookid = req.body._bookid;
 
-    shelveModel.findOneAndUpdate({ name: oldShelve }).then((shelve) => {//don't forget to add user:userid to both finds at the end
+    shelveModel.findOneAndUpdate({ name: oldShelve ,user:userid }).then((shelve) => {
       shelve.book.pull({ _id: bookid });
       shelve.save(function (err) {
         if (err) return handleError(err);
         else {
+          res.send("added");
           shelveModel.findOneAndUpdate(
-            { name: newShelve }, //don't forget to add user:userid to both finds at the end
+            { name: newShelve ,user:userid}, 
             { $push: { book: { _id: bookid } } },
             (err) => {
               if (err) {
