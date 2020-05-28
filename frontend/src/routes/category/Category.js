@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from 'react'
 import {ListGroup} from 'react-bootstrap';
 import Navbar from '../../components/navbar/navbar';
+import { NavLink ,Link } from "react-router-dom";
 
 //import axios from 'axios';
 function alertClicked() {
@@ -36,8 +37,10 @@ const Category=()=>{
             <ListGroup defaultActiveKey="#sport">
              {
                 categories.map((cat)=>
-                    <ListGroup.Item action href={"#"+cat._id}>{cat.name}
+                    <ListGroup.Item>
+                        <Link to={"/categories/" + cat._id}> {cat.name}</Link>
                     </ListGroup.Item>
+                
                     )
             }
                {/*<ListGroup.Item action onClick={alertClicked}>
