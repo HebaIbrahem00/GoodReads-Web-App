@@ -36,16 +36,16 @@ export default function UserMain(props) {
       .catch((error) => {
         console.log(error);
       });
-  },[2]);
+  });
 
 
 
   return (
-    <div>
-      <div className="leftpane" style={{ paddingRight: 20 }}>
-        <ul className="list-group">
+    <div className="main">
+      <div className="leftpane main" style={{ paddingRight: 20 }}>
+        <ul className="list-group main">
           <li
-            className="list-group-item d-flex justify-content-between align-items-center"
+            className="list-group-item d-flex justify-content-between align-items-center main"
             style={{ height: 70 }}
           >
             <a
@@ -60,7 +60,7 @@ export default function UserMain(props) {
             <span className="badge badge-primary badge-pill"> {}</span>
           </li>
           <li
-            className="list-group-item d-flex justify-content-between align-items-center"
+            className="list-group-item d-flex justify-content-between align-items-center main"
             style={{ height: 70 }}
           >
             <a
@@ -75,7 +75,7 @@ export default function UserMain(props) {
             <span className="badge badge-primary badge-pill">0</span>
           </li>
           <li
-            className="list-group-item d-flex justify-content-between align-items-center"
+            className="list-group-item d-flex justify-content-between align-items-center main"
             style={{ height: 70 }}
           >
             <a
@@ -90,7 +90,7 @@ export default function UserMain(props) {
             <span className="badge badge-primary badge-pill">0</span>
           </li>
           <li
-            className="list-group-item d-flex justify-content-between align-items-center"
+            className="list-group-item d-flex justify-content-between align-items-center main"
             style={{ height: 70 }}
           >
             <a
