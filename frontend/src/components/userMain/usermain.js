@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 
 import UserTable from "../userTable/usertable.js";
 import axios from "axios";
-import { AuthContext, AuthProvider } from "../../store/AuthContext";
+
 
 export default function UserMain(props) {
   const [shelve, setShelve] = useState("All");
@@ -24,32 +26,26 @@ export default function UserMain(props) {
       data: {
         id: id,
         shelve: shelve,
-      }
-    }).then((response) => {
-        console.log("response",response.data);
-        console.log("axios workingg");
-        setBooks(response.data)
-      }).catch((error) => {
+      },
+    })
+      .then((response) => {
+        console.log("response", response.data);
+     
+        setBooks(response.data);
+      })
+      .catch((error) => {
         console.log(error);
       });
-  },[]);
+  });
 
-  /*
- async function getBooks(url,data){
-  const response = await fetch(url,{
-    method:'get',
-    body:data
-  } );
-}*/
 
- 
 
   return (
-    <div>
-      <div className="leftpane" style={{ paddingRight: 20 }}>
-        <ul className="list-group">
+    <div className="main">
+      <div className="leftpane main" style={{ paddingRight: 20 }}>
+        <ul className="list-group main">
           <li
-            className="list-group-item d-flex justify-content-between align-items-center"
+            className="list-group-item d-flex justify-content-between align-items-center main"
             style={{ height: 70 }}
           >
             <a
@@ -61,10 +57,10 @@ export default function UserMain(props) {
             >
               All
             </a>
-            <span className="badge badge-primary badge-pill">0</span>
+            <span className="badge badge-primary badge-pill"> {}</span>
           </li>
           <li
-            className="list-group-item d-flex justify-content-between align-items-center"
+            className="list-group-item d-flex justify-content-between align-items-center main"
             style={{ height: 70 }}
           >
             <a
@@ -79,7 +75,7 @@ export default function UserMain(props) {
             <span className="badge badge-primary badge-pill">0</span>
           </li>
           <li
-            className="list-group-item d-flex justify-content-between align-items-center"
+            className="list-group-item d-flex justify-content-between align-items-center main"
             style={{ height: 70 }}
           >
             <a
@@ -94,7 +90,7 @@ export default function UserMain(props) {
             <span className="badge badge-primary badge-pill">0</span>
           </li>
           <li
-            className="list-group-item d-flex justify-content-between align-items-center"
+            className="list-group-item d-flex justify-content-between align-items-center main"
             style={{ height: 70 }}
           >
             <a

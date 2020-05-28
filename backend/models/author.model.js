@@ -17,6 +17,11 @@ authorSchema.methods = {
     },
     getBooks: function () {
         return this.books
+    },
+    getDataTransferObject: function (userId) {
+      return {
+        ...this._doc, books: this.getBooks().map((book) => book.getDataTransferObject(userId))
+      };
     }
 }
 
@@ -30,7 +35,7 @@ authorSchema.statics = {
     constructData: function (req) {
         return req.file? {
             ...req.body,
-            pic: "images/authors/" + req.file.filename
+            pic: "images/" + req.file.filename
         } : req.body;
     },
     search: function (query) {

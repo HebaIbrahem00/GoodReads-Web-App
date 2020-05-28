@@ -14,68 +14,71 @@ export default class EditFormAuthor extends Component {
         this.onLastNameChange=this.onLastNameChange.bind(this)
         this.onBIOChange=this.onBIOChange.bind(this)
         this.onDOBChange=this.onDOBChange.bind(this)
-        this.state = {
-            firstName:'',
-	    lastName:'',
-	    dob:'',
-	    bio:'',	
-            pic: ''
-        }
+	this.initalizeState=this.initalizeState.bind(this)
     }
 
+
+        
+     
     onFirstNameChange(e){
-        this.setState({firstName:e.target.value})
+	this.props.Author.firstName=e.target.value;
+	console.log(this.props.Author)
     }
     onLastNameChange(e){
-        this.setState({lastName:e.target.value})
+	this.props.Author.firstName=e.target.value;
+	console.log(this.props.Author)
     }
     onBIOChange(e){
-        this.setState({bio:e.target.value})
+	this.props.Author.firstName=e.target.value;
+	console.log(this.props.Author)
     }
     onDOBChange(e){
-        this.setState({dob:e.target.value})
+	this.props.Author.dob=e.target.value;
+	console.log(this.props.Author)
     }
 
     onFileChange(e) {
-        this.setState({ pic: e.target.files[0] })
+	this.props.Author.dob=e.target.files[0];
+	console.log(this.props.Author)
     }
     onSubmit(e) {
         e.preventDefault()
-        const formData = new FormData()
-        formData.append('pic', this.state.pic)
-        formData.append('firstName',this.state.firstName)
-        formData.append('lastName',this.state.lastName)
-        formData.append('dob',this.state.dob)
-        formData.append('bio',this.state.bio)
-        console.log(formData);
-        axios.post(`http://localhost:5000/admin/author/update/${this.props.Author._id}`, formData, {}).then(res => {console.log(res)})
+        console.log(this.props.Author);
+        axios.post(`http://localhost:5000/admin/author/update/${this.props.Author._id}`, this.props.Author, {}).then(res => {console.log(res)})
        	this.props.UpdateShowModal(false); 
     }
     render() {
+	const firstName=this.props.Author.firstName;
+	const lastName=this.props.Author.lastName;
+	const pic=this.props.Author.pic;
+	const dob=this.props.Author.dob;
+	const bio=this.props.Author.bio;
         return (
+	
 	<div>
 	{console.log(this.props.Author)}
+	{this.initalizeState}
         <Form onSubmit={this.onSubmit}>
                 <Form.Group controlId="formFirstName">
                         <Form.Label>First Name</Form.Label>
-                        <Form.Control type="name" name="firstName" placeholder="Enter First Name" defaultValue={this.props.Author.firstName} onChange={this.onFirstNameChange}/>
+                        <Form.Control type="name" name="firstName" placeholder="Enter First Name"  defaultValue={firstName} onChange={this.onFirstNameChange}/>
                 </Form.Group>
                 <Form.Group controlId="formSecondName">
                         <Form.Label>Second Name</Form.Label>
-                        <Form.Control type="name" name="lastName" placeholder="Enter Second Name" defaultValue={this.props.Author.lastName}  onChange={this.onLastNameChange}/>
+                        <Form.Control type="name" name="lastName" placeholder="Enter Second Name"  defaultValue={lastName}  onChange={this.onLastNameChange}/>
                 </Form.Group>
                 <Form.Group controlId="formDateOfBirth">
                         <Form.Label>Date of Birth</Form.Label>
-                        <Form.Control type="date" name="dob" placeholder="Enter Date of Birth" defaultValue={this.props.Author.dob}   onChange={this.onDOBChange}/>
+                        <Form.Control type="date" name="dob" placeholder="Enter Date of Birth" defaultValue={dob} onChange={this.onDOBChange}/>
                 </Form.Group>
                 <Form.Group controlId="BIOS">
                         <Form.Label>BIOS</Form.Label>
-                        <Form.Control type="text" name="bio" placeholder="Enter BIOS" defaultValue={this.props.Author.bio}  onChange={this.onBIOChange}/>
+                        <Form.Control type="text" name="bio" placeholder="Enter BIOS"  defaultValue={bio} onChange={this.onBIOChange}/>
                 </Form.Group>
             
                  <Form.Group>
                     <Form.Label>Enter Photo</Form.Label>
-                    <Form.File id="custom-file" label="Custom file input"  name="pic"  onChange={this.onFileChange} />
+                    <Form.File id="custom-file" label="Custom file input"  name="pic"   onChange={this.onFileChange} />
                 </Form.Group>
                 <Button variant="primary" type="submit">ADD Author </Button>
         </Form>
@@ -83,19 +86,3 @@ export default class EditFormAuthor extends Component {
         )
     }
 }
-
- /*<div className="container">
-                <div className="row">
-                    <form onSubmit={this.onSubmit}>
-                    <div className="form-group">
-                            <input type="text" onChange={this.onFirstNameChange} />
-                        </div>
-                        <div className="form-group">
-                            <input type="file" onChange={this.onFileChange} />
-                        </div>
-                        <div className="form-group">
-                            <button className="btn btn-primary" type="submit">Upload</button>
-                        </div>
-                    </form>
-                </div>
-            </div>*/

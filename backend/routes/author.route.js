@@ -2,7 +2,7 @@ const express = require ("express")
 const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require("multer");
-const upload = multer({dest: 'uploads/authors/'});//upload is a folder to upload all incoming files
+const upload = multer({dest: 'uploads'});//upload is a folder to upload all incoming files
 const authorModel = require('../models/author.model')
 
 router.get('/', (req, res) => {
@@ -31,7 +31,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/books', (req, res) => {
     authorModel.get(req.params.id).then((author) => {
-        res.json(author.getBooks().map((book) => book.getDataTransferObject()))
+        res.json(author.getBooks().map((book) => book.getDataTransferObject(req.query.user_id)))
     }).catch((err) => {
         res.status(400).json(err);
     });

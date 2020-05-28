@@ -12,6 +12,15 @@ const Admin = () => {
 const [books,setBooks]=useState([]); 
 const [categories,setCategories]=useState([]);
 const [authors,setAuthors]=useState([]);
+const [categoriesEmpty,setCategoriesEmpty]=useState(false);
+const [authorsEmpty,setAuthorsEmpty]=useState(false);
+	function isEmpty(obj) {
+	    for(var key in obj) {
+		if(obj.hasOwnProperty(key))
+		    return false;
+	    }
+	    return true;
+	}
 
     async function fetchBookData() {
 		const url="http://localhost:5000/admin/book";
@@ -24,8 +33,9 @@ const [authors,setAuthors]=useState([]);
 			const url="http://localhost:5000/admin/category";
 			const res=await fetch(url)
 			    res.json()
-			    .then(res=>{setCategories(res);})
-
+			    .then(res=>{setCategories(res);console.log("Res"+res);}).catch(err=>console.log(err));
+			
+console.log("Categories"+categories);
        }
     async function fetchAuthorData() {
         const url="http://localhost:5000/admin/author";
@@ -38,22 +48,27 @@ useEffect(() => {
             fetchBookData();
             fetchAuthorData();
 	    fetchCategoryData();
-           console.log("Authors"+authors);
-	   console.log("Categories"+authors);
-      	   console.log("Book" +authors);
         },[]);
+useEffect(() => {
+           isEmpty(categories)?setCategoriesEmpty(true):setCategoriesEmpty(false)
+	   isEmpty(authors)?setAuthorsEmpty(true):setAuthorsEmpty(false)
+        });
     return (
+ 	<div>
+             
+	
         <Tabs defaultActiveKey="categories" id="uncontrolled-tab-example">
           <Tab eventKey="categories" title="Categories">
                  {<TableCategories Categories={categories}/>}
           </Tab>
           <Tab eventKey="books" title="Books">
-                 <TableBooks Books={books} Authors={authors} Categories={categories}/>
+                 <TableBooks Books={books} Authors={authors} Categories={categories} CategoryCheck={categoriesEmpty} AuthorCheck={authorsEmpty}/>
           </Tab>
           <Tab eventKey="authors" title="Authors">        
                {  <TableAuthors Authors={authors}/> }
           </Tab>
         </Tabs>
+	</div>
     );
 }
 export default Admin;
